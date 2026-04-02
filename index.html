@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bryce Ross James Noakes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --font: 'EB Garamond', Georgia, serif; --text: #1a1a1a; }
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: #fff;
+  overflow-x: hidden;
+}
+.bio {
+  position: fixed;
+  bottom: 48px;
+  right: 52px;
+  text-align: right;
+  font-size: 12.5px;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  z-index: 100;
+}
+.bio a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.35); }
+.bio a:hover { opacity: 0.5; }
+.work {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 200px 80px 80px;
+  position: relative;
+}
+.work-img {
+  display: block;
+  max-width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+}
+.work-caption {
+  margin-top: 18px;
+  text-align: right;
+  font-size: 11.5px;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  max-width: 460px;
+  align-self: flex-end;
+  padding-right: 0;
+}
+.scroll-hint {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: #777;
+  text-transform: uppercase;
+  animation: fadeHint 3.5s ease 1.8s forwards;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+@keyframes fadeHint {
+  0%  { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  70% { opacity: 1; }
+  100%{ opacity: 0; }
+}
+.bouncing-drill {
+  position: fixed;
+  z-index: 50;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+@media (max-width: 768px) {
+  .work { padding: 40px 20px 120px; }
+  .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; }
+  .work-caption { font-size: 11px; max-width: 90vw; }
+}
+</style>
+</head>
+<body>
+<aside class="bio">
+  Bryce Ross James Noakes<br>
+  Artist | Designer | Fabricator<br>
+  b. 1994, Australia.<br>
+  He lives and works in Northern NSW.<br>
+  <a id="email-link" href="#">loading...</a>
+</aside>
+<div class="scroll-hint">Scroll</div>
+<section class="work">
+  <img class="work-img" src="images/chrome-osb-1.jpg" alt="Chrome OSB">
+  <div class="work-caption">Chrome OSB, ABS FDM, aluminium flat bar, enamel paint, Loctite 401</div>
+</section>
+<section class="work">
+  <img class="work-img" src="images/chrome-osb-2.jpg" alt="Chrome OSB">
+</section>
+<section class="work">
+  <img class="work-img" src="images/post-animalism-1.jpg" alt="Post Animalism 01">
+  <div class="work-caption">
+    An old idea resurfacing from Fine Art Honours at UNSW. I hated the course,
+    but I couldn&#x27;t shake post-animalism &mdash; a small essay buried inside post-humanism
+    that stayed with me. A prototype exploring that concept before sand casting in aluminium.<br><br>
+    MDF, resin, ABS FDM, steel wax, chrome paint, enamel paint
+  </div>
+</section>
+<section class="work">
+  <img class="work-img" src="images/post-animalism-2.jpg" alt="Post Animalism 01">
+</section>
+<section class="work">
+  <img class="work-img" src="images/3-heads-1.jpg" alt="3 Heads">
+  <div class="work-caption">3 heads<br><br>Fine art print on aluminium, aluminium angle, pop rivets, epoxy</div>
+</section>
+<section class="work">
+  <img class="work-img" src="images/3-heads-2.jpg" alt="3 Heads">
+</section>
+<section class="work">
+  <img class="work-img" src="images/3-heads-3.jpg" alt="3 Heads">
+</section>
+<section class="work">
+  <img class="work-img" src="images/3-heads-4.jpg" alt="3 Heads">
+</section>
+<img id="drill-src" src="images/drill.png" alt="" style="display:none;">
+<script>
+(function() {
+  var a = document.getElementById('email-link');
+  var addr = 'info' + '@' + 'tradearts' + '.' + 'work';
+  a.href = 'mail' + 'to:' + addr;
+  a.textContent = addr;
+})();
+(function() {
+  var drillSrc = document.getElementById('drill-src');
+  var drills = [];
+  var maxDrills = 12;
+  var drillSize = 180;
+  var currentCount = 0;
+  var animId = null;
+  function createDrill() {
+    var img = document.createElement('img');
+    img.src = drillSrc.src;
+    img.className = 'bouncing-drill';
+    img.style.width = drillSize + 'px';
+    img.style.height = 'auto';
+    var startX = Math.random() * (window.innerWidth - drillSize);
+    var startY = Math.random() * (window.innerHeight - drillSize);
+    img.style.left = startX + 'px';
+    img.style.top = startY + 'px';
+    document.body.appendChild(img);
+    var speed = 1.2 + Math.random() * 1.2;
+    var angle = Math.random() * Math.PI * 2;
+    drills.push({ el: img, x: startX, y: startY, dx: Math.cos(angle) * speed, dy: Math.sin(angle) * speed });
+  }
+  function removeDrill() {
+    if (drills.length === 0) return;
+    var d = drills.pop();
+    d.el.remove();
+  }
+  function animate() {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    for (var i = 0; i < drills.length; i++) {
+      var d = drills[i];
+      d.x += d.dx;
+      d.y += d.dy;
+      var imgW = d.el.offsetWidth || drillSize;
+      var imgH = d.el.offsetHeight || drillSize;
+      if (d.x <= 0) { d.x = 0; d.dx = Math.abs(d.dx); }
+      if (d.x >= w - imgW) { d.x = w - imgW; d.dx = -Math.abs(d.dx); }
+      if (d.y <= 0) { d.y = 0; d.dy = Math.abs(d.dy); }
+      if (d.y >= h - imgH) { d.y = h - imgH; d.dy = -Math.abs(d.dy); }
+      d.el.style.left = d.x + 'px';
+      d.el.style.top = d.y + 'px';
+    }
+    animId = requestAnimationFrame(animate);
+  }
+  function updateDrillCount() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var scrollFraction = docHeight > 0 ? scrollTop / docHeight : 0;
+    var target = Math.max(1, Math.round(scrollFraction * maxDrills));
+    while (drills.length < target) createDrill();
+    while (drills.length > target) removeDrill();
+    currentCount = target;
+  }
+  function init() {
+    createDrill();
+    currentCount = 1;
+    animate();
+    window.addEventListener('scroll', updateDrillCount);
+    window.addEventListener('resize', updateDrillCount);
+  }
+  if (drillSrc.complete && drillSrc.naturalWidth > 0) {
+    init();
+  } else {
+    drillSrc.addEventListener('load', init);
+  }
+})();
+</script>
+</body>
+</html>
