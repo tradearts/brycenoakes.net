@@ -21,7 +21,7 @@ body::-webkit-scrollbar { display: none; }
 .scroll-hint { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 10.5px; letter-spacing: 0.14em; color: #777; text-transform: uppercase; animation: fadeHint 3.5s ease 1.8s forwards; opacity: 0; pointer-events: none; z-index: 100; }
 @keyframes fadeHint { 0% { opacity: 0; transform: translateX(-50%) translateY(5px); } 20% { opacity: 1; transform: translateX(-50%) translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; } }
 .bouncing-drill { position: fixed; z-index: 50; pointer-events: none; mix-blend-mode: multiply; }
-#leadScrewCanvas { position: fixed; right: 0; top: 0; width: 36px; height: 100vh; z-index: 200; pointer-events: none; }
+#leadScrewCanvas { position: fixed; right: 0; top: 0; width: 40px; height: 100vh; z-index: 200; pointer-events: none; }
 @media (max-width: 768px) { .work { padding: 40px 20px 120px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; max-width: 90vw; } #leadScrewCanvas { display: none; } }
 </style>
 </head>
@@ -72,127 +72,165 @@ body::-webkit-scrollbar { display: none; }
 <script>
 (function(){var a=document.getElementById('email-link');var addr='info'+'@'+'tradearts'+'.work';a.href='mail'+'to:'+addr;a.textContent=addr;})();
 
-/* T8 Lead Screw — canvas-drawn, thread offset simulates rotation on scroll */
+/* T8 Lead Screw — canvas, tight trapezoidal threads, brass nut */
 (function(){
   var canvas = document.getElementById('leadScrewCanvas');
   var ctx = canvas.getContext('2d');
-  var scrollOffset = 0;
+  var scrollY = 0;
+
+  var W = 40;
+  var shaftW = 18;   /* shaft diameter in px */
+  var pitch = 5.5;   /* px per thread — very tight, matches real T8 */
 
   function resize() {
-    canvas.width = 36;
+    canvas.width = W;
     canvas.height = window.innerHeight;
     draw();
   }
 
   function draw() {
-    var W = canvas.width;
     var H = canvas.height;
     var cx = W / 2;
-    var shaftW = 16;
-    var pitch = 14; /* px per thread — T8 has 2mm pitch, scaled visually */
+    var x0 = cx - shaftW / 2;
+    var x1 = cx + shaftW / 2;
     ctx.clearRect(0, 0, W, H);
 
-    /* Shaft body gradient */
-    var grad = ctx.createLinearGradient(cx - shaftW/2, 0, cx + shaftW/2, 0);
-    grad.addColorStop(0,    '#7a7a7a');
-    grad.addColorStop(0.15, '#b0b0b0');
-    grad.addColorStop(0.35, '#e8e8e8');
-    grad.addColorStop(0.55, '#f5f5f5');
-    grad.addColorStop(0.75, '#c8c8c8');
-    grad.addColorStop(1,    '#888888');
-    ctx.fillStyle = grad;
-    ctx.fillRect(cx - shaftW/2, 0, shaftW, H);
+    /* --- Shaft base gradient --- */
+    var shaftGrad = ctx.createLinearGradient(x0, 0, x1, 0);
+    shaftGrad.addColorStop(0,    '#4a4a4a');
+    shaftGrad.addColorStop(0.08, '#6e6e6e');
+    shaftGrad.addColorStop(0.22, '#c8c8c8');
+    shaftGrad.addColorStop(0.38, '#efefef');
+    shaftGrad.addColorStop(0.52, '#ffffff');
+    shaftGrad.addColorStop(0.65, '#d0d0d0');
+    shaftGrad.addColorStop(0.82, '#909090');
+    shaftGrad.addColorStop(1,    '#505050');
+    ctx.fillStyle = shaftGrad;
+    ctx.fillRect(x0, 0, shaftW, H);
 
-    /* Thread ridges — offset by scrollOffset to simulate rotation */
-    var offset = scrollOffset % pitch;
+    /* --- Thread ridges — tight pairs scrolling with offset --- */
+    var offset = scrollY % pitch;
     ctx.save();
+    /* clip to shaft width + tiny overhang for root depth illusion */
     ctx.beginPath();
-    ctx.rect(cx - shaftW/2 - 4, 0, shaftW + 8, H);
+    ctx.rect(x0 - 1, 0, shaftW + 2, H);
     ctx.clip();
 
-    for (var y = -pitch + offset; y < H + pitch; y += pitch) {
-      /* Ridge shadow (bottom of ridge) */
+    for (var y = -pitch * 2 + offset; y < H + pitch; y += pitch) {
+      var bend = 1.2; /* how much thread curves across shaft face */
+
+      /* Thread root (dark valley — between ridges) */
       ctx.beginPath();
-      ctx.moveTo(cx - shaftW/2 - 3, y + 3);
-      ctx.quadraticCurveTo(cx, y + 5, cx + shaftW/2 + 3, y + 3);
-      ctx.strokeStyle = 'rgba(0,0,0,0.28)';
-      ctx.lineWidth = 2.5;
+      ctx.moveTo(x0, y + pitch * 0.55);
+      ctx.quadraticCurveTo(cx, y + pitch * 0.55 + bend, x1, y + pitch * 0.55);
+      ctx.strokeStyle = 'rgba(0,0,0,0.55)';
+      ctx.lineWidth = 1.2;
       ctx.stroke();
 
-      /* Ridge highlight (top of ridge) */
+      /* Ridge top highlight (bright crest) */
       ctx.beginPath();
-      ctx.moveTo(cx - shaftW/2 - 3, y);
-      ctx.quadraticCurveTo(cx, y + 2, cx + shaftW/2 + 3, y);
-      ctx.strokeStyle = 'rgba(255,255,255,0.75)';
-      ctx.lineWidth = 2;
+      ctx.moveTo(x0, y);
+      ctx.quadraticCurveTo(cx, y + bend, x1, y);
+      ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+      ctx.lineWidth = 0.9;
       ctx.stroke();
 
-      /* Ridge mid-tone body */
+      /* Ridge mid (steel body tone) */
       ctx.beginPath();
-      ctx.moveTo(cx - shaftW/2 - 3, y + 1);
-      ctx.quadraticCurveTo(cx, y + 3.5, cx + shaftW/2 + 3, y + 1);
-      ctx.strokeStyle = '#aaaaaa';
-      ctx.lineWidth = 1.5;
+      ctx.moveTo(x0, y + pitch * 0.22);
+      ctx.quadraticCurveTo(cx, y + pitch * 0.22 + bend, x1, y + pitch * 0.22);
+      ctx.strokeStyle = 'rgba(160,160,160,0.6)';
+      ctx.lineWidth = 0.7;
+      ctx.stroke();
+
+      /* Ridge underside shadow */
+      ctx.beginPath();
+      ctx.moveTo(x0, y + pitch * 0.42);
+      ctx.quadraticCurveTo(cx, y + pitch * 0.42 + bend, x1, y + pitch * 0.42);
+      ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+      ctx.lineWidth = 0.8;
       ctx.stroke();
     }
     ctx.restore();
 
-    /* Left/right edge darkening for cylindrical depth */
-    var leftShadow = ctx.createLinearGradient(cx - shaftW/2 - 4, 0, cx - shaftW/2 + 4, 0);
-    leftShadow.addColorStop(0, 'rgba(0,0,0,0.35)');
-    leftShadow.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = leftShadow;
-    ctx.fillRect(cx - shaftW/2 - 4, 0, 8, H);
+    /* --- Left/right cylindrical edge shadows --- */
+    var edgeL = ctx.createLinearGradient(x0 - 1, 0, x0 + 5, 0);
+    edgeL.addColorStop(0, 'rgba(0,0,0,0.5)');
+    edgeL.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = edgeL;
+    ctx.fillRect(x0 - 1, 0, 6, H);
 
-    var rightShadow = ctx.createLinearGradient(cx + shaftW/2 - 4, 0, cx + shaftW/2 + 4, 0);
-    rightShadow.addColorStop(0, 'rgba(0,0,0,0)');
-    rightShadow.addColorStop(1, 'rgba(0,0,0,0.35)');
-    ctx.fillStyle = rightShadow;
-    ctx.fillRect(cx + shaftW/2 - 4, 0, 8, H);
+    var edgeR = ctx.createLinearGradient(x1 - 5, 0, x1 + 1, 0);
+    edgeR.addColorStop(0, 'rgba(0,0,0,0)');
+    edgeR.addColorStop(1, 'rgba(0,0,0,0.5)');
+    ctx.fillStyle = edgeR;
+    ctx.fillRect(x1 - 5, 0, 6, H);
 
-    /* Nut — moves with scroll */
+    /* --- Brass nut --- */
     var docH = document.documentElement.scrollHeight - window.innerHeight;
     var frac = docH > 0 ? (window.pageYOffset / docH) : 0;
-    var nutH = 22;
-    var nutW = 26;
-    var nutY = frac * (H - nutH);
+    var nutH = 28;
+    var nutW = 30;
+    var flangeH = 6;
+    var flangeW = 36;
+    var nutY = frac * (H - nutH - flangeH * 2) + flangeH;
     var nutX = cx - nutW / 2;
+    var flangeX = cx - flangeW / 2;
 
-    /* Nut body */
-    var nutGrad = ctx.createLinearGradient(nutX, 0, nutX + nutW, 0);
-    nutGrad.addColorStop(0,    '#555');
-    nutGrad.addColorStop(0.2,  '#aaa');
-    nutGrad.addColorStop(0.5,  '#ddd');
-    nutGrad.addColorStop(0.8,  '#aaa');
-    nutGrad.addColorStop(1,    '#666');
-    ctx.fillStyle = nutGrad;
+    /* Nut body — brass gradient */
+    var brassGrad = ctx.createLinearGradient(nutX, 0, nutX + nutW, 0);
+    brassGrad.addColorStop(0,    '#7a5c00');
+    brassGrad.addColorStop(0.15, '#c8940a');
+    brassGrad.addColorStop(0.35, '#f0c030');
+    brassGrad.addColorStop(0.55, '#ffd84a');
+    brassGrad.addColorStop(0.72, '#c89010');
+    brassGrad.addColorStop(0.88, '#9a6e00');
+    brassGrad.addColorStop(1,    '#6a4800');
+    ctx.fillStyle = brassGrad;
     ctx.beginPath();
     ctx.roundRect(nutX, nutY, nutW, nutH, 2);
     ctx.fill();
 
-    /* Nut top highlight */
-    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    /* Top flange disc */
+    var flangeGrad = ctx.createLinearGradient(flangeX, 0, flangeX + flangeW, 0);
+    flangeGrad.addColorStop(0,   '#7a5c00');
+    flangeGrad.addColorStop(0.4, '#e8b820');
+    flangeGrad.addColorStop(0.6, '#ffd040');
+    flangeGrad.addColorStop(1,   '#7a5c00');
+    ctx.fillStyle = flangeGrad;
     ctx.beginPath();
-    ctx.roundRect(nutX + 2, nutY + 1, nutW - 4, 4, 1);
+    ctx.roundRect(flangeX, nutY - flangeH, flangeW, flangeH, 2);
     ctx.fill();
 
-    /* Nut centre groove */
-    ctx.strokeStyle = 'rgba(0,0,0,0.3)';
-    ctx.lineWidth = 1.5;
+    /* Bottom flange disc */
+    ctx.fillStyle = flangeGrad;
     ctx.beginPath();
-    ctx.moveTo(nutX + 3, nutY + nutH/2);
-    ctx.lineTo(nutX + nutW - 3, nutY + nutH/2);
+    ctx.roundRect(flangeX, nutY + nutH, flangeW, flangeH, 2);
+    ctx.fill();
+
+    /* Nut highlight streak */
+    ctx.fillStyle = 'rgba(255,255,200,0.35)';
+    ctx.beginPath();
+    ctx.roundRect(nutX + 4, nutY + 3, 5, nutH - 6, 2);
+    ctx.fill();
+
+    /* Nut centre groove line */
+    ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(nutX + 3, nutY + nutH / 2);
+    ctx.lineTo(nutX + nutW - 3, nutY + nutH / 2);
     ctx.stroke();
 
     /* Nut bottom shadow */
-    ctx.fillStyle = 'rgba(0,0,0,0.18)';
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
     ctx.beginPath();
-    ctx.roundRect(nutX + 2, nutY + nutH - 5, nutW - 4, 4, 1);
+    ctx.roundRect(nutX, nutY + nutH - 5, nutW, 5, [0, 0, 2, 2]);
     ctx.fill();
   }
 
   window.addEventListener('scroll', function() {
-    scrollOffset = window.pageYOffset * 0.6;
+    scrollY = window.pageYOffset;
     draw();
   }, {passive: true});
 
