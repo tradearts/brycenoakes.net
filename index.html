@@ -21,12 +21,8 @@ body::-webkit-scrollbar { display: none; }
 .scroll-hint { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 10.5px; letter-spacing: 0.14em; color: #777; text-transform: uppercase; animation: fadeHint 3.5s ease 1.8s forwards; opacity: 0; pointer-events: none; z-index: 100; }
 @keyframes fadeHint { 0% { opacity: 0; transform: translateX(-50%) translateY(5px); } 20% { opacity: 1; transform: translateX(-50%) translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; } }
 .bouncing-drill { position: fixed; z-index: 50; pointer-events: none; mix-blend-mode: multiply; }
-/* T8 Lead Screw scrollbar */
-.lead-screw-wrap { position: fixed; right: 0; top: 0; height: 100vh; width: 28px; z-index: 200; pointer-events: none; overflow: hidden; }
-.lead-screw { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 18px; }
-.lead-screw-nut { position: absolute; left: 50%; transform: translateX(-50%); width: 26px; height: 14px; background: #c8c8c8; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.5); z-index: 201; pointer-events: none; transition: top 0.05s linear; }
-.lead-screw-nut::before { content: ''; position: absolute; left: 3px; right: 3px; top: 50%; height: 2px; background: rgba(0,0,0,0.2); transform: translateY(-50%); border-radius: 1px; }
-@media (max-width: 768px) { .work { padding: 40px 20px 120px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; max-width: 90vw; } .lead-screw-wrap { display: none; } }
+#leadScrewCanvas { position: fixed; right: 0; top: 0; width: 36px; height: 100vh; z-index: 200; pointer-events: none; }
+@media (max-width: 768px) { .work { padding: 40px 20px 120px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; max-width: 90vw; } #leadScrewCanvas { display: none; } }
 </style>
 </head>
 <body>
@@ -38,28 +34,7 @@ body::-webkit-scrollbar { display: none; }
  <a id="email-link" href="#">loading...</a>
 </aside>
 <div class="scroll-hint">Scroll</div>
-<!-- T8 Lead Screw scrollbar -->
-<div class="lead-screw-wrap">
- <svg class="lead-screw" id="leadScrew" viewBox="0 0 18 9999" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">
- <defs>
- <pattern id="thread" x="0" y="0" width="18" height="8" patternUnits="userSpaceOnUse">
- <rect width="18" height="8" fill="#b0b0b0"/>
- <ellipse cx="9" cy="0" rx="8" ry="2.2" fill="#d8d8d8"/>
- <ellipse cx="9" cy="8" rx="8" ry="2.2" fill="#d8d8d8"/>
- <rect x="1" y="0" width="16" height="8" fill="url(#shaftGrad)"/>
- </pattern>
- <linearGradient id="shaftGrad" x1="0" y1="0" x2="1" y2="0">
- <stop offset="0%" stop-color="#888"/>
- <stop offset="30%" stop-color="#ddd"/>
- <stop offset="55%" stop-color="#f0f0f0"/>
- <stop offset="75%" stop-color="#ccc"/>
- <stop offset="100%" stop-color="#999"/>
- </linearGradient>
- </defs>
- <rect x="1" y="0" width="16" height="9999" fill="url(#thread)"/>
- </svg>
- <div class="lead-screw-nut" id="leadScrewNut"></div>
-</div>
+<canvas id="leadScrewCanvas"></canvas>
 <section class="work">
  <img class="work-img" src="images/chrome-osb-1.jpg" alt="Chrome OSB">
  <div class="work-caption">Chrome OSB, ABS FDM, aluminium flat bar, enamel paint, Loctite 401</div>
@@ -96,7 +71,136 @@ body::-webkit-scrollbar { display: none; }
 <img id="drill-src" src="images/drill.png" alt="" style="display:none;">
 <script>
 (function(){var a=document.getElementById('email-link');var addr='info'+'@'+'tradearts'+'.work';a.href='mail'+'to:'+addr;a.textContent=addr;})();
-(function(){var nut=document.getElementById('leadScrewNut');var screw=document.getElementById('leadScrew');function updateScrew(){var scrollTop=window.pageYOffset||document.documentElement.scrollTop;var docHeight=document.documentElement.scrollHeight-window.innerHeight;var frac=docHeight>0?scrollTop/docHeight:0;var nutH=14;var trackH=window.innerHeight-nutH;nut.style.top=(frac*trackH)+'px';var rotDeg=scrollTop*0.5;screw.style.transform='rotate('+rotDeg+'deg)';} updateScrew();window.addEventListener('scroll',updateScrew,{passive:true});window.addEventListener('resize',updateScrew);})();
+
+/* T8 Lead Screw — canvas-drawn, thread offset simulates rotation on scroll */
+(function(){
+  var canvas = document.getElementById('leadScrewCanvas');
+  var ctx = canvas.getContext('2d');
+  var scrollOffset = 0;
+
+  function resize() {
+    canvas.width = 36;
+    canvas.height = window.innerHeight;
+    draw();
+  }
+
+  function draw() {
+    var W = canvas.width;
+    var H = canvas.height;
+    var cx = W / 2;
+    var shaftW = 16;
+    var pitch = 14; /* px per thread — T8 has 2mm pitch, scaled visually */
+    ctx.clearRect(0, 0, W, H);
+
+    /* Shaft body gradient */
+    var grad = ctx.createLinearGradient(cx - shaftW/2, 0, cx + shaftW/2, 0);
+    grad.addColorStop(0,    '#7a7a7a');
+    grad.addColorStop(0.15, '#b0b0b0');
+    grad.addColorStop(0.35, '#e8e8e8');
+    grad.addColorStop(0.55, '#f5f5f5');
+    grad.addColorStop(0.75, '#c8c8c8');
+    grad.addColorStop(1,    '#888888');
+    ctx.fillStyle = grad;
+    ctx.fillRect(cx - shaftW/2, 0, shaftW, H);
+
+    /* Thread ridges — offset by scrollOffset to simulate rotation */
+    var offset = scrollOffset % pitch;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(cx - shaftW/2 - 4, 0, shaftW + 8, H);
+    ctx.clip();
+
+    for (var y = -pitch + offset; y < H + pitch; y += pitch) {
+      /* Ridge shadow (bottom of ridge) */
+      ctx.beginPath();
+      ctx.moveTo(cx - shaftW/2 - 3, y + 3);
+      ctx.quadraticCurveTo(cx, y + 5, cx + shaftW/2 + 3, y + 3);
+      ctx.strokeStyle = 'rgba(0,0,0,0.28)';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      /* Ridge highlight (top of ridge) */
+      ctx.beginPath();
+      ctx.moveTo(cx - shaftW/2 - 3, y);
+      ctx.quadraticCurveTo(cx, y + 2, cx + shaftW/2 + 3, y);
+      ctx.strokeStyle = 'rgba(255,255,255,0.75)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      /* Ridge mid-tone body */
+      ctx.beginPath();
+      ctx.moveTo(cx - shaftW/2 - 3, y + 1);
+      ctx.quadraticCurveTo(cx, y + 3.5, cx + shaftW/2 + 3, y + 1);
+      ctx.strokeStyle = '#aaaaaa';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    /* Left/right edge darkening for cylindrical depth */
+    var leftShadow = ctx.createLinearGradient(cx - shaftW/2 - 4, 0, cx - shaftW/2 + 4, 0);
+    leftShadow.addColorStop(0, 'rgba(0,0,0,0.35)');
+    leftShadow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = leftShadow;
+    ctx.fillRect(cx - shaftW/2 - 4, 0, 8, H);
+
+    var rightShadow = ctx.createLinearGradient(cx + shaftW/2 - 4, 0, cx + shaftW/2 + 4, 0);
+    rightShadow.addColorStop(0, 'rgba(0,0,0,0)');
+    rightShadow.addColorStop(1, 'rgba(0,0,0,0.35)');
+    ctx.fillStyle = rightShadow;
+    ctx.fillRect(cx + shaftW/2 - 4, 0, 8, H);
+
+    /* Nut — moves with scroll */
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    var frac = docH > 0 ? (window.pageYOffset / docH) : 0;
+    var nutH = 22;
+    var nutW = 26;
+    var nutY = frac * (H - nutH);
+    var nutX = cx - nutW / 2;
+
+    /* Nut body */
+    var nutGrad = ctx.createLinearGradient(nutX, 0, nutX + nutW, 0);
+    nutGrad.addColorStop(0,    '#555');
+    nutGrad.addColorStop(0.2,  '#aaa');
+    nutGrad.addColorStop(0.5,  '#ddd');
+    nutGrad.addColorStop(0.8,  '#aaa');
+    nutGrad.addColorStop(1,    '#666');
+    ctx.fillStyle = nutGrad;
+    ctx.beginPath();
+    ctx.roundRect(nutX, nutY, nutW, nutH, 2);
+    ctx.fill();
+
+    /* Nut top highlight */
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.beginPath();
+    ctx.roundRect(nutX + 2, nutY + 1, nutW - 4, 4, 1);
+    ctx.fill();
+
+    /* Nut centre groove */
+    ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(nutX + 3, nutY + nutH/2);
+    ctx.lineTo(nutX + nutW - 3, nutY + nutH/2);
+    ctx.stroke();
+
+    /* Nut bottom shadow */
+    ctx.fillStyle = 'rgba(0,0,0,0.18)';
+    ctx.beginPath();
+    ctx.roundRect(nutX + 2, nutY + nutH - 5, nutW - 4, 4, 1);
+    ctx.fill();
+  }
+
+  window.addEventListener('scroll', function() {
+    scrollOffset = window.pageYOffset * 0.6;
+    draw();
+  }, {passive: true});
+
+  window.addEventListener('resize', resize);
+  resize();
+})();
+
+/* Bouncing drills */
 (function(){var drillSrc=document.getElementById('drill-src');var drills=[];var maxDrills=12;var drillSize=180;function createDrill(){var img=document.createElement('img');img.src=drillSrc.src;img.className='bouncing-drill';img.style.width=drillSize+'px';img.style.height='auto';var startX=Math.random()*(window.innerWidth-drillSize);var startY=Math.random()*(window.innerHeight-drillSize);img.style.left=startX+'px';img.style.top=startY+'px';document.body.appendChild(img);var speed=1.2+Math.random()*1.2;var angle=Math.random()*Math.PI*2;drills.push({el:img,x:startX,y:startY,dx:Math.cos(angle)*speed,dy:Math.sin(angle)*speed});}function removeDrill(){if(drills.length===0)return;var d=drills.pop();d.el.remove();}function animate(){var w=window.innerWidth;var h=window.innerHeight;for(var i=0;i<drills.length;i++){var d=drills[i];d.x+=d.dx;d.y+=d.dy;var imgW=d.el.offsetWidth||drillSize;var imgH=d.el.offsetHeight||drillSize;if(d.x<=0){d.x=0;d.dx=Math.abs(d.dx);}if(d.x>=w-imgW){d.x=w-imgW;d.dx=-Math.abs(d.dx);}if(d.y<=0){d.y=0;d.dy=Math.abs(d.dy);}if(d.y>=h-imgH){d.y=h-imgH;d.dy=-Math.abs(d.dy);}d.el.style.left=d.x+'px';d.el.style.top=d.y+'px';}requestAnimationFrame(animate);}function updateDrillCount(){var scrollTop=window.pageYOffset||document.documentElement.scrollTop;var docHeight=document.documentElement.scrollHeight-window.innerHeight;var scrollFraction=docHeight>0?scrollTop/docHeight:0;var target=Math.max(1,Math.round(scrollFraction*maxDrills));while(drills.length<target)createDrill();while(drills.length>target)removeDrill();}function init(){createDrill();animate();window.addEventListener('scroll',updateDrillCount);window.addEventListener('resize',updateDrillCount);}if(drillSrc.complete&&drillSrc.naturalWidth>0){init();}else{drillSrc.addEventListener('load',init);}})();
 </script>
 </body>
