@@ -10,8 +10,9 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root { --font: 'EB Garamond', Georgia, serif; --text: #1a1a1a; }
-body { font-family: var(--font); color: var(--text); background: #fff; overflow-x: hidden; scrollbar-width: none; }
+body { font-family: var(--font); color: var(--text); background: #fff; overflow-x: hidden; scrollbar-width: none; cursor: none; }
 body::-webkit-scrollbar { display: none; }
+* { cursor: none !important; }
 .bio { position: fixed; bottom: 48px; right: 80px; text-align: right; font-size: 12.5px; line-height: 1.85; letter-spacing: 0.01em; z-index: 100; }
 .bio a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.35); }
 .bio a:hover { opacity: 0.5; }
@@ -20,12 +21,14 @@ body::-webkit-scrollbar { display: none; }
 .work-caption { margin-top: 18px; text-align: right; font-size: 11.5px; line-height: 1.75; letter-spacing: 0.01em; max-width: 460px; align-self: flex-end; }
 .scroll-hint { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 10.5px; letter-spacing: 0.14em; color: #777; text-transform: uppercase; animation: fadeHint 3.5s ease 1.8s forwards; opacity: 0; pointer-events: none; z-index: 100; }
 @keyframes fadeHint { 0% { opacity: 0; transform: translateX(-50%) translateY(5px); } 20% { opacity: 1; transform: translateX(-50%) translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; } }
-.bouncing-drill { position: fixed; z-index: 50; pointer-events: none; mix-blend-mode: multiply; }
+#cursor { position: fixed; top: 0; left: 0; width: 36px; height: 36px; pointer-events: none; z-index: 9999; transform: translate(-4px, -4px); transition: opacity 0.2s; will-change: transform; }
+#cursor img { width: 100%; height: 100%; object-fit: contain; filter: saturate(0) brightness(1.8) contrast(1.2) drop-shadow(0 0 1px rgba(200,220,255,0.8)) drop-shadow(0 1px 2px rgba(0,0,0,0.4)); }
 #leadScrewCanvas { position: fixed; right: 0; top: 0; width: 60px; height: 100vh; z-index: 200; pointer-events: none; }
-@media (max-width: 768px) { .work { padding: 40px 20px 120px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; max-width: 90vw; } #leadScrewCanvas { display: none; } }
+@media (max-width: 768px) { .work { padding: 40px 20px 120px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; max-width: 90vw; } #leadScrewCanvas { display: none; } #cursor { display: none; } }
 </style>
 </head>
 <body>
+<div id="cursor"><img src="images/drill.png" alt=""></div>
 <aside class="bio">
  Bryce Ross James Noakes<br>
  Artist | Designer | Fabricator<br>
@@ -68,10 +71,23 @@ body::-webkit-scrollbar { display: none; }
 <section class="work">
  <img class="work-img" src="images/3-heads-4.jpg" alt="3 Heads">
 </section>
-<img id="drill-src" src="images/drill.png" alt="" style="display:none;">
 <script>
 (function(){var a=document.getElementById('email-link');var addr='info'+'@'+'tradearts'+'.work';a.href='mail'+'to:'+addr;a.textContent=addr;})();
 
+/* Custom cursor */
+(function(){
+  var cur = document.getElementById('cursor');
+  var mx = -100, my = -100;
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.transform = 'translate(' + (mx - 4) + 'px,' + (my - 4) + 'px)';
+  }, {passive: true});
+  document.addEventListener('mouseleave', function() { cur.style.opacity = '0'; });
+  document.addEventListener('mouseenter', function() { cur.style.opacity = '1'; });
+})();
+
+/* T8 Lead Screw */
 (function(){
   var canvas = document.getElementById('leadScrewCanvas');
   var ctx = canvas.getContext('2d');
@@ -90,8 +106,6 @@ body::-webkit-scrollbar { display: none; }
     var cx = W / 2;
     var x0 = cx - shaftW / 2;
     var x1 = cx + shaftW / 2;
-
-    /* Base cylinder gradient - light from upper-left */
     var g = ctx.createLinearGradient(x0, 0, x1, 0);
     g.addColorStop(0,    '#2e2e2e');
     g.addColorStop(0.06, '#505050');
@@ -105,42 +119,31 @@ body::-webkit-scrollbar { display: none; }
     g.addColorStop(1,    '#333333');
     ctx.fillStyle = g;
     ctx.fillRect(x0, 0, shaftW, H);
-
-    /* Tight thread grooves scrolling with scroll position */
     var offset = scrollY % pitch;
     ctx.save();
     ctx.beginPath();
     ctx.rect(x0, 0, shaftW, H);
     ctx.clip();
-
     for (var y = -pitch * 3 + offset; y < H + pitch; y += pitch) {
-      var c = 0.8; /* curve amount — subtle convexity */
-
-      /* Dark root groove */
+      var c = 0.8;
       ctx.beginPath();
       ctx.moveTo(x0, y + pitch * 0.7);
       ctx.quadraticCurveTo(cx, y + pitch * 0.7 + c, x1, y + pitch * 0.7);
       ctx.strokeStyle = 'rgba(0,0,0,0.75)';
       ctx.lineWidth = 1.4;
       ctx.stroke();
-
-      /* Secondary shadow just above root */
       ctx.beginPath();
       ctx.moveTo(x0, y + pitch * 0.52);
       ctx.quadraticCurveTo(cx, y + pitch * 0.52 + c, x1, y + pitch * 0.52);
       ctx.strokeStyle = 'rgba(0,0,0,0.35)';
       ctx.lineWidth = 0.8;
       ctx.stroke();
-
-      /* Mid ridge body */
       ctx.beginPath();
       ctx.moveTo(x0, y + pitch * 0.28);
       ctx.quadraticCurveTo(cx, y + pitch * 0.28 + c, x1, y + pitch * 0.28);
       ctx.strokeStyle = 'rgba(120,120,120,0.5)';
       ctx.lineWidth = 0.7;
       ctx.stroke();
-
-      /* Ridge crest highlight */
       ctx.beginPath();
       ctx.moveTo(x0, y);
       ctx.quadraticCurveTo(cx, y + c, x1, y);
@@ -149,8 +152,6 @@ body::-webkit-scrollbar { display: none; }
       ctx.stroke();
     }
     ctx.restore();
-
-    /* Specular streak - bright line down the main highlight zone */
     var specX = cx - shaftW * 0.08;
     var specGrad = ctx.createLinearGradient(specX - 2, 0, specX + 3, 0);
     specGrad.addColorStop(0, 'rgba(255,255,255,0)');
@@ -158,14 +159,11 @@ body::-webkit-scrollbar { display: none; }
     specGrad.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = specGrad;
     ctx.fillRect(specX - 2, 0, 6, H);
-
-    /* Hard left and right edge darkening */
     var edgeL = ctx.createLinearGradient(x0, 0, x0 + 5, 0);
     edgeL.addColorStop(0, 'rgba(0,0,0,0.65)');
     edgeL.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = edgeL;
     ctx.fillRect(x0, 0, 5, H);
-
     var edgeR = ctx.createLinearGradient(x1 - 5, 0, x1, 0);
     edgeR.addColorStop(0, 'rgba(0,0,0,0)');
     edgeR.addColorStop(1, 'rgba(0,0,0,0.65)');
@@ -177,100 +175,29 @@ body::-webkit-scrollbar { display: none; }
     var cx = W / 2;
     var docH = document.documentElement.scrollHeight - window.innerHeight;
     var frac = docH > 0 ? (window.pageYOffset / docH) : 0;
-
-    var bodyH = 36;
-    var bodyW = 34;
-    var flangeH = 8;
-    var flangeW = 46;
+    var bodyH = 36, bodyW = 34, flangeH = 8, flangeW = 46;
     var totalH = bodyH + flangeH * 2;
     var nutY = frac * (H - totalH);
-
-    /* === Bottom flange === */
-    var fg2 = ctx.createLinearGradient(cx - flangeW/2, 0, cx + flangeW/2, 0);
-    fg2.addColorStop(0,    '#5c3f00');
-    fg2.addColorStop(0.25, '#c88010');
-    fg2.addColorStop(0.48, '#f0c030');
-    fg2.addColorStop(0.6,  '#ffe050');
-    fg2.addColorStop(0.78, '#c07800');
-    fg2.addColorStop(1,    '#5c3f00');
-    ctx.fillStyle = fg2;
-    ctx.beginPath();
-    ctx.roundRect(cx - flangeW/2, nutY + flangeH + bodyH, flangeW, flangeH, [0,0,3,3]);
-    ctx.fill();
-    ctx.fillStyle = 'rgba(0,0,0,0.25)';
-    ctx.beginPath();
-    ctx.roundRect(cx - flangeW/2, nutY + flangeH + bodyH + flangeH - 3, flangeW, 3, [0,0,3,3]);
-    ctx.fill();
-
-    /* === Body === */
+    var fg = ctx.createLinearGradient(cx - flangeW/2, 0, cx + flangeW/2, 0);
+    fg.addColorStop(0, '#5c3f00'); fg.addColorStop(0.25, '#c88010'); fg.addColorStop(0.48, '#f0c030'); fg.addColorStop(0.6, '#ffe050'); fg.addColorStop(0.78, '#c07800'); fg.addColorStop(1, '#5c3f00');
+    ctx.fillStyle = fg;
+    ctx.beginPath(); ctx.roundRect(cx - flangeW/2, nutY + flangeH + bodyH, flangeW, flangeH, [0,0,3,3]); ctx.fill();
+    ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.beginPath(); ctx.roundRect(cx - flangeW/2, nutY + flangeH + bodyH + flangeH - 3, flangeW, 3, [0,0,3,3]); ctx.fill();
     var bg = ctx.createLinearGradient(cx - bodyW/2, 0, cx + bodyW/2, 0);
-    bg.addColorStop(0,    '#4a3000');
-    bg.addColorStop(0.1,  '#9a6800');
-    bg.addColorStop(0.25, '#d49010');
-    bg.addColorStop(0.42, '#f8c828');
-    bg.addColorStop(0.55, '#ffe060');
-    bg.addColorStop(0.68, '#e8b010');
-    bg.addColorStop(0.82, '#a07000');
-    bg.addColorStop(1,    '#4a3000');
-    ctx.fillStyle = bg;
-    ctx.beginPath();
-    ctx.roundRect(cx - bodyW/2, nutY + flangeH, bodyW, bodyH, 2);
-    ctx.fill();
-
-    /* Body knurl lines */
-    ctx.save();
-    ctx.beginPath();
-    ctx.roundRect(cx - bodyW/2, nutY + flangeH, bodyW, bodyH, 2);
-    ctx.clip();
+    bg.addColorStop(0, '#4a3000'); bg.addColorStop(0.1, '#9a6800'); bg.addColorStop(0.25, '#d49010'); bg.addColorStop(0.42, '#f8c828'); bg.addColorStop(0.55, '#ffe060'); bg.addColorStop(0.68, '#e8b010'); bg.addColorStop(0.82, '#a07000'); bg.addColorStop(1, '#4a3000');
+    ctx.fillStyle = bg; ctx.beginPath(); ctx.roundRect(cx - bodyW/2, nutY + flangeH, bodyW, bodyH, 2); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.roundRect(cx - bodyW/2, nutY + flangeH, bodyW, bodyH, 2); ctx.clip();
     for (var ky = nutY + flangeH + 5; ky < nutY + flangeH + bodyH - 4; ky += 5.5) {
-      ctx.beginPath();
-      ctx.moveTo(cx - bodyW/2 + 2, ky);
-      ctx.lineTo(cx + bodyW/2 - 2, ky);
-      ctx.strokeStyle = 'rgba(0,0,0,0.18)';
-      ctx.lineWidth = 0.8;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cx - bodyW/2 + 2, ky + 1);
-      ctx.lineTo(cx + bodyW/2 - 2, ky + 1);
-      ctx.strokeStyle = 'rgba(255,200,0,0.18)';
-      ctx.lineWidth = 0.5;
-      ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - bodyW/2 + 2, ky); ctx.lineTo(cx + bodyW/2 - 2, ky); ctx.strokeStyle = 'rgba(0,0,0,0.18)'; ctx.lineWidth = 0.8; ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - bodyW/2 + 2, ky + 1); ctx.lineTo(cx + bodyW/2 - 2, ky + 1); ctx.strokeStyle = 'rgba(255,200,0,0.18)'; ctx.lineWidth = 0.5; ctx.stroke();
     }
     ctx.restore();
-
-    /* Body highlight streak */
     var hg = ctx.createLinearGradient(cx - bodyW/2, 0, cx - bodyW/2 + 10, 0);
-    hg.addColorStop(0, 'rgba(255,240,120,0)');
-    hg.addColorStop(0.5, 'rgba(255,240,120,0.35)');
-    hg.addColorStop(1, 'rgba(255,240,120,0)');
-    ctx.fillStyle = hg;
-    ctx.beginPath();
-    ctx.roundRect(cx - bodyW/2, nutY + flangeH, 10, bodyH, 2);
-    ctx.fill();
-
-    /* Body bottom shadow */
-    ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    ctx.beginPath();
-    ctx.roundRect(cx - bodyW/2, nutY + flangeH + bodyH - 5, bodyW, 5, [0,0,2,2]);
-    ctx.fill();
-
-    /* === Top flange === */
-    var fg = ctx.createLinearGradient(cx - flangeW/2, 0, cx + flangeW/2, 0);
-    fg.addColorStop(0,    '#5c3f00');
-    fg.addColorStop(0.25, '#c88010');
-    fg.addColorStop(0.48, '#f0c030');
-    fg.addColorStop(0.6,  '#ffe050');
-    fg.addColorStop(0.78, '#c07800');
-    fg.addColorStop(1,    '#5c3f00');
-    ctx.fillStyle = fg;
-    ctx.beginPath();
-    ctx.roundRect(cx - flangeW/2, nutY, flangeW, flangeH, [3,3,0,0]);
-    ctx.fill();
-    /* Flange top highlight */
-    ctx.fillStyle = 'rgba(255,235,100,0.5)';
-    ctx.beginPath();
-    ctx.roundRect(cx - flangeW/2 + 3, nutY + 1, flangeW - 6, 3, 1);
-    ctx.fill();
+    hg.addColorStop(0, 'rgba(255,240,120,0)'); hg.addColorStop(0.5, 'rgba(255,240,120,0.35)'); hg.addColorStop(1, 'rgba(255,240,120,0)');
+    ctx.fillStyle = hg; ctx.beginPath(); ctx.roundRect(cx - bodyW/2, nutY + flangeH, 10, bodyH, 2); ctx.fill();
+    ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.beginPath(); ctx.roundRect(cx - bodyW/2, nutY + flangeH + bodyH - 5, bodyW, 5, [0,0,2,2]); ctx.fill();
+    ctx.fillStyle = fg; ctx.beginPath(); ctx.roundRect(cx - flangeW/2, nutY, flangeW, flangeH, [3,3,0,0]); ctx.fill();
+    ctx.fillStyle = 'rgba(255,235,100,0.5)'; ctx.beginPath(); ctx.roundRect(cx - flangeW/2 + 3, nutY + 1, flangeW - 6, 3, 1); ctx.fill();
   }
 
   function draw() {
@@ -280,15 +207,10 @@ body::-webkit-scrollbar { display: none; }
     drawNut(H);
   }
 
-  window.addEventListener('scroll', function() {
-    scrollY = window.pageYOffset;
-    draw();
-  }, {passive: true});
+  window.addEventListener('scroll', function() { scrollY = window.pageYOffset; draw(); }, {passive: true});
   window.addEventListener('resize', resize);
   resize();
 })();
-
-(function(){var drillSrc=document.getElementById('drill-src');var drills=[];var maxDrills=12;var drillSize=180;function createDrill(){var img=document.createElement('img');img.src=drillSrc.src;img.className='bouncing-drill';img.style.width=drillSize+'px';img.style.height='auto';var startX=Math.random()*(window.innerWidth-drillSize);var startY=Math.random()*(window.innerHeight-drillSize);img.style.left=startX+'px';img.style.top=startY+'px';document.body.appendChild(img);var speed=1.2+Math.random()*1.2;var angle=Math.random()*Math.PI*2;drills.push({el:img,x:startX,y:startY,dx:Math.cos(angle)*speed,dy:Math.sin(angle)*speed});}function removeDrill(){if(drills.length===0)return;var d=drills.pop();d.el.remove();}function animate(){var w=window.innerWidth;var h=window.innerHeight;for(var i=0;i<drills.length;i++){var d=drills[i];d.x+=d.dx;d.y+=d.dy;var imgW=d.el.offsetWidth||drillSize;var imgH=d.el.offsetHeight||drillSize;if(d.x<=0){d.x=0;d.dx=Math.abs(d.dx);}if(d.x>=w-imgW){d.x=w-imgW;d.dx=-Math.abs(d.dx);}if(d.y<=0){d.y=0;d.dy=Math.abs(d.dy);}if(d.y>=h-imgH){d.y=h-imgH;d.dy=-Math.abs(d.dy);}d.el.style.left=d.x+'px';d.el.style.top=d.y+'px';}requestAnimationFrame(animate);}function updateDrillCount(){var scrollTop=window.pageYOffset||document.documentElement.scrollTop;var docHeight=document.documentElement.scrollHeight-window.innerHeight;var scrollFraction=docHeight>0?scrollTop/docHeight:0;var target=Math.max(1,Math.round(scrollFraction*maxDrills));while(drills.length<target)createDrill();while(drills.length>target)removeDrill();}function init(){createDrill();animate();window.addEventListener('scroll',updateDrillCount);window.addEventListener('resize',updateDrillCount);}if(drillSrc.complete&&drillSrc.naturalWidth>0){init();}else{drillSrc.addEventListener('load',init);}})();
 </script>
 </body>
 </html>
