@@ -17,10 +17,14 @@ body::-webkit-scrollbar { display: none; }
 .bio a:hover { opacity: 0.5; }
 .work { width: 100vw; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 240px 80px 80px; position: relative; }
 .work-img { display: block; max-width: 100%; max-height: 76vh; object-fit: contain; }
-.work-caption { margin-top: 18px; text-align: right; font-size: 11.5px; line-height: 1.75; letter-spacing: 0.01em; max-width: 460px; align-self: flex-end; }
+.work-inner { position: relative; display: inline-flex; flex-direction: column; align-items: flex-end; }
+.work-inner .work-img { transition: filter 0.45s ease; }
+.work-inner:hover .work-img { filter: brightness(0.3); }
+.work-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 32px; color: #fff; font-size: 11.5px; line-height: 1.75; letter-spacing: 0.01em; text-align: right; opacity: 0; transition: opacity 0.45s ease; pointer-events: none; }
+.work-inner:hover .work-caption { opacity: 1; }
 .scroll-hint { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 10.5px; letter-spacing: 0.14em; color: #777; text-transform: uppercase; animation: fadeHint 3.5s ease 1.8s forwards; opacity: 0; pointer-events: none; z-index: 100; }
 @keyframes fadeHint { 0% { opacity: 0; transform: translateX(-50%) translateY(5px); } 20% { opacity: 1; transform: translateX(-50%) translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; } }
-@media (max-width: 768px) { .work { padding: 40px 20px 120px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; max-width: 90vw; } }
+@media (max-width: 768px) { .work { padding: 40px 20px 120px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; padding: 20px 16px; } }
 </style>
 </head>
 <body>
@@ -33,8 +37,10 @@ body::-webkit-scrollbar { display: none; }
 </aside>
 <div class="scroll-hint">Scroll</div>
 <section class="work">
+ <div class="work-inner">
  <img class="work-img" src="images/chrome-osb-1.jpg" alt="Chrome OSB">
  <div class="work-caption">Chrome OSB, ABS FDM, aluminium flat bar, enamel paint, Loctite 401</div>
+ </div>
 </section>
 <section class="work">
  <img class="work-img" src="images/chrome-osb-2.jpg" alt="Chrome OSB">
@@ -43,8 +49,10 @@ body::-webkit-scrollbar { display: none; }
  <img class="work-img" src="images/chrome-osb-3.jpg" alt="Chrome OSB">
 </section>
 <section class="work">
+ <div class="work-inner">
  <img class="work-img" src="images/post-animalism-1.jpg" alt="Post Animalism 01">
  <div class="work-caption">An old idea resurfacing from Fine Art Honours at UNSW. I hated the course, but I couldn&#x27;t shake post-animalism &#x2014; a small essay buried inside post-humanism that stayed with me. A prototype exploring that concept before sand casting in aluminium.<br><br>MDF, resin, ABS FDM, steel wax, chrome paint, enamel paint</div>
+ </div>
 </section>
 <section class="work">
  <img class="work-img" src="images/post-animalism-2.jpg" alt="Post Animalism 01">
@@ -53,8 +61,10 @@ body::-webkit-scrollbar { display: none; }
  <img class="work-img" src="images/post-animalism-3.jpg" alt="Post Animalism 01">
 </section>
 <section class="work">
+ <div class="work-inner">
  <img class="work-img" src="images/3-heads-1.jpg" alt="3 Heads">
  <div class="work-caption">3 heads<br><br>Fine art print on aluminium, aluminium angle, pop rivets, epoxy</div>
+ </div>
 </section>
 <section class="work">
  <img class="work-img" src="images/3-heads-2.jpg" alt="3 Heads">
