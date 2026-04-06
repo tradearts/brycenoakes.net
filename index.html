@@ -25,9 +25,9 @@ body::-webkit-scrollbar { display: none; }
 .scroll-hint { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 10.5px; letter-spacing: 0.14em; color: #777; text-transform: uppercase; animation: fadeHint 3.5s ease 1.8s forwards; opacity: 0; pointer-events: none; z-index: 100; }
 @keyframes fadeHint { 0% { opacity: 0; transform: translateX(-50%) translateY(5px); } 20% { opacity: 1; transform: translateX(-50%) translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; } }
 .work.has-tool { overflow: hidden; }
-.tool-overlay { position: absolute; white-space: pre; font-family: 'Courier New', Courier, monospace; font-size: 11px; line-height: 1.3; color: var(--text); opacity: 0; pointer-events: none; z-index: 5; top: 50%; left: 0; transform: translate(100vw, -50%); }
-.tool-overlay.animate { animation: toolSlide 7s cubic-bezier(.4,0,.2,1) forwards; }
-@keyframes toolSlide { 0% { transform: translate(100vw, -50%); opacity: 0; } 4% { opacity: 0.16; } 85% { opacity: 0.16; } 100% { transform: translate(-20vw, -50%); opacity: 0; } }
+.tool-overlay { position: absolute; white-space: pre; font-family: 'Courier New', Courier, monospace; font-size: 14px; line-height: 1.3; color: var(--text); opacity: 0; pointer-events: none; z-index: 5; top: 50%; right: 0; transform: translate(120%, -50%); }
+.tool-overlay.animate { animation: toolSlide 4s cubic-bezier(.25,0,.2,1) forwards; }
+@keyframes toolSlide { 0% { transform: translate(120%, -50%); opacity: 0; } 8% { opacity: 0.5; } 75% { opacity: 0.45; } 100% { transform: translate(-120%, -50%); opacity: 0; } }
 @media (max-width: 768px) { .work { padding: 40px 20px 60px; } .bio { top: 20px; right: 20px; bottom: auto; font-size: 11px; } .work-caption { font-size: 11px; padding: 20px 16px; } .tool-overlay { display: none; } }
 </style>
 </head>
