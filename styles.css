@@ -488,6 +488,10 @@ h3 {
   transition: transform 600ms cubic-bezier(0.2, 0.65, 0.3, 1);
 }
 
+.flybuys-card-image img {
+  object-position: 54% center;
+}
+
 .work-card:hover .work-card-image img {
   transform: scale(1.018);
 }
@@ -853,15 +857,6 @@ h3 {
 .case-cover img {
   max-height: 52rem;
   object-fit: cover;
-}
-
-/* A standing subject keeps its portrait frame rather than being cropped to a band. */
-.case-cover-flybuys {
-  max-width: 40rem;
-}
-
-.case-cover-flybuys img {
-  aspect-ratio: 3 / 4;
 }
 
 /* Concept renders top out at 1424 px, so they are never shown wider than that. */

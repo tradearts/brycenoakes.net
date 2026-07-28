@@ -33,7 +33,8 @@ workshop set (`_MG_65xx-Enhanced-NR`, 5616 × 3744).
 ## Selected-work cards
 
 - `images/projects/revitalise/card.jpg` — 4:3 crop of the walkway render
-- `images/projects/flybuys/card.jpg` — 4:3 crop of `IMG_1993`, anchored high
+- `images/projects/flybuys/campaign-still.jpg` — final campaign frame, cropped
+  responsively to 4:3 on the homepage
 - `images/projects/art/card.jpg` — 4:3 crop of `post-animalism-1.jpg`
 
 ## Coffs Harbour reVITALise
@@ -56,11 +57,16 @@ Public attribution:
 
 ## Flybuys robot
 
-Source: `TA HQ/TA_PORTFOLIO/05_BEST_PROJECT_IMAGES/00_CURATED_MASTER_2026-07/09_ROBOT_FLYBUYS`
-(originals 4032–5712 px).
+Build-photo source:
+`TA HQ/TA_PORTFOLIO/05_BEST_PROJECT_IMAGES/00_CURATED_MASTER_2026-07/09_ROBOT_FLYBUYS`
+(originals 4032–5712 px). Final campaign source is listed separately below.
 
-- `IMG_1993.jpeg` -> `finished.jpg` (case cover, 3:4 portrait — the subject is a
-  standing figure, so it keeps its portrait frame)
+- `TA HQ/WEB DESIGN/WORK/TVC/ROBOT_FLYBUYS/IMAGES/Screenshot 2025-09-02 at
+  10.27.jpeg` -> `campaign-still.jpg` (case cover and homepage card, 2200 ×
+  1092). This is the polished final-commercial frame also represented on the
+  public Trade Arts project page at `https://tradearts.work/work/flybuys`.
+- `IMG_1993.jpeg` -> `finished.jpg` (previous case cover retained locally for
+  rollback, no longer referenced by the live pages)
 - `IMG_1984.jpeg` -> `workshop.jpg`
 - `IMG_1985.jpeg` -> `assembly.jpg`
 
