@@ -2,11 +2,32 @@
 
 All images are local and sourced from Bryce Noakes / Trade Arts project records.
 
+## Studio photography
+
+- `images/studio/workshop-wide.jpg`
+  - Source: Trade Arts workshop photography, `_MG_6598-Enhanced-NR.jpeg`
+  - Use: homepage studio environment
+- `images/studio/bryce-portrait.jpg`
+  - Source: `TA HQ/PHOTO SHOOT/PR_Selected_Images/Highlights/tradearts27.jpg`
+  - Use: profile portrait
+- `images/studio/process-routing.jpg`
+  - Source: `TA HQ/PHOTO SHOOT/PR_Selected_Images/Highlights/tradearts14.jpg`
+  - Use: profile process image
+- `images/studio/material-detail.jpg`
+  - Source: `TA HQ/PHOTO SHOOT/PR_Selected_Images/Highlights/tradearts31.jpg`
+  - Use: material-detail image
+- `images/studio/bryce-working.jpg`
+  - Source: `TA HQ/PHOTO SHOOT/PR_Selected_Images/Highlights/tradearts49.jpg`
+  - Use: digital-fabrication process image
+
 ## Current personal-site repository
 
-- `images/chrome-osb-1.jpg` -> `images/portfolio/chrome-osb.webp`
-- `images/post-animalism-1.jpg` -> `images/portfolio/post-animalism.webp`
-- `images/3-heads-1.jpg` -> `images/portfolio/three-heads.webp`
+- `images/chrome-osb-1.jpg`
+- `images/post-animalism-1.jpg`
+- `images/3-heads-1.jpg`
+
+The original JPEGs are used directly to avoid unnecessary quality loss from
+an additional compressed derivative.
 
 ## Trade Arts curated portfolio library
 
@@ -28,8 +49,8 @@ Source:
 
 Drive ID `1l42KAV1IaqLHmdlKV3iS_5nMpePgKDb9`
 
-- Individual render extracted from PDF page 4 -> `images/v2/revitalise-secondary.webp`
-- Individual renders extracted from PDF page 5 -> `images/v2/hero-revitalise.webp` and `images/v2/revitalise-main.webp`
+- Original embedded render extracted from PDF page 3 -> `images/projects/revitalise/walkway.png`
+- Original embedded renders extracted from PDF page 5 -> `images/projects/revitalise/overhead.png` and `images/projects/revitalise/wall-and-overhead.png`
 
 Public attribution:
 
@@ -37,23 +58,15 @@ Public attribution:
 - Design development, buildability, fabrication planning and Stage 1 delivery: Trade Arts
 - Status: commissioned Stage 1 completed and delivered; construction subsequently deferred by the City
 
-## Workshop
+## Flybuys robot
 
 Source:
 
-`TA HQ/TA_PORTFOLIO/05_BEST_PROJECT_IMAGES/00_CURATED_MASTER_2026-07/Workshop - Team - Process`
+`TA HQ/TA_PORTFOLIO/05_BEST_PROJECT_IMAGES/00_CURATED_MASTER_2026-07/09_ROBOT_FLYBUYS`
 
-- Drive ID `1NoU9Iar7mXw_p3bzRxp2PkEnAXNBzBgt` -> `images/v2/workshop.webp`
-
-## Flybuys robot
-
-Public source:
-
-`https://www.tradearts.work/work/flybuys`
-
-- Completed robot close-up -> `images/v2/flybuys-robot-main.webp`
-- 3D concept and completed campaign comparison -> `images/v2/flybuys-robot-concept-to-screen.webp`
-- Completed robot in the campaign -> `images/v2/flybuys-robot-screen.webp`
+- `IMG_1993.jpeg` -> `images/projects/flybuys/finished.jpg`
+- `IMG_1840.jpeg` -> `images/projects/flybuys/workshop.jpg`
+- `IMG_7339.jpeg` -> `images/projects/flybuys/on-set.jpg`
 
 Public attribution:
 
