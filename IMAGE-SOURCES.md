@@ -45,6 +45,22 @@ Source:
 
 - Drive ID `1NoU9Iar7mXw_p3bzRxp2PkEnAXNBzBgt` -> `images/v2/workshop.webp`
 
+## Flybuys robot
+
+Public source:
+
+`https://www.tradearts.work/work/flybuys`
+
+- Completed robot close-up -> `images/v2/flybuys-robot-main.webp`
+- 3D concept and completed campaign comparison -> `images/v2/flybuys-robot-concept-to-screen.webp`
+- Completed robot in the campaign -> `images/v2/flybuys-robot-screen.webp`
+
+Public attribution:
+
+- Client: Flybuys
+- Project delivered through Trade Arts
+- Scope: working robot fabrication using repurposed parts and 3D-printed components
+
 ## Social preview
 
 `images/og-bryce-noakes.jpg` is a composite made from the final local
