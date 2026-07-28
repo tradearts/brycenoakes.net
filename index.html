@@ -3,27 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bryce Noakes — Creative Project Leader, Designer &amp; Fabricator</title>
-  <meta name="description" content="Bryce Noakes is a multidisciplinary creative project leader, designer and fabricator based in Northern NSW, Australia.">
-  <meta name="theme-color" content="#f4f1ea">
+  <title>Bryce Noakes — Creative Project Leader</title>
+  <meta name="description" content="Bryce Noakes is a design-led creative project leader working across public art, specialist fabrication, exhibitions and screen production.">
+  <meta name="theme-color" content="#f3f0e8">
   <meta property="og:title" content="Bryce Noakes — Creative Project Leader">
-  <meta property="og:description" content="Creative judgement, practical delivery and founder-level accountability across public art, fabrication, exhibitions and screen production.">
+  <meta property="og:description" content="Creative judgement, practical delivery and founder-level accountability from first idea to physical outcome.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://brycenoakes.net/">
-  <meta property="og:image" content="https://brycenoakes.net/images/portfolio/pterodactyl.webp">
+  <meta property="og:image" content="https://brycenoakes.net/images/og-bryce-noakes.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <a class="wordmark" href="#top" aria-label="Bryce Noakes, home">
+    <a class="wordmark" href="/" aria-label="Bryce Noakes, home">
       <span>Bryce Noakes</span>
-      <span class="wordmark-role">Creative project leader</span>
+      <span>Creative project leader</span>
     </a>
 
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -35,310 +37,175 @@
       <a href="#work">Work</a>
       <a href="#profile">Profile</a>
       <a href="#experience">Experience</a>
+      <a href="/bryce-noakes-cv.pdf">CV</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero section" id="top">
+    <section class="hero" id="top">
       <div class="hero-copy reveal">
         <p class="eyebrow">Northern Rivers, Australia</p>
-        <h1>I lead creative projects from first idea to physical delivery.</h1>
+        <h1>Design-led projects, made clear and deliverable.</h1>
         <p class="hero-intro">
-          I’m Bryce Noakes, a multidisciplinary project leader, designer and fabricator.
-          I bring together creative judgement, budgets, procurement, production and
-          stakeholder coordination to make ambitious work deliverable.
+          I’m Bryce Noakes, a multidisciplinary creative project leader, designer and
+          fabricator. I turn ambitious ideas into coordinated, buildable outcomes.
         </p>
-        <div class="hero-actions">
-          <a class="text-link" href="#work">View selected work <span aria-hidden="true">↓</span></a>
-          <a class="text-link" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+        <div class="link-row">
+          <a class="button button-dark" href="#work">Selected work</a>
+          <a class="button" href="/bryce-noakes-cv.pdf">View CV</a>
+          <a class="quiet-link" href="https://au.linkedin.com/in/bryce-noakes-381408269" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
       </div>
 
-      <figure class="hero-figure reveal">
-        <img src="images/portfolio/pterodactyl.webp" width="1800" height="1200" alt="Large pterodactyl sculpture being checked inside the Trade Arts workshop">
-        <figcaption>
-          Large-scale sculptural fabrication<br>
-          Delivered through Trade Arts
-        </figcaption>
-      </figure>
+      <div class="hero-collage reveal" aria-label="Selected project imagery">
+        <figure class="hero-image hero-image-main">
+          <img src="/images/v2/hero-revitalise.webp" width="1600" height="1120" alt="reVITALise public-art concept moving through the Park Avenue walkway">
+        </figure>
+        <figure class="hero-image hero-image-detail">
+          <img src="/images/v2/workshop.webp" width="1800" height="1200" alt="Trade Arts workshop in the Northern Rivers">
+        </figure>
+        <figure class="hero-image hero-image-art">
+          <img src="/images/portfolio/chrome-osb.webp" width="1000" height="1500" alt="Chrome OSB sculptural work by Bryce Noakes">
+        </figure>
+      </div>
 
-      <div class="hero-index reveal" aria-label="Professional summary">
-        <div>
-          <span class="index-label">Current</span>
-          <span>Founder &amp; Creative Director<br>Trade Arts</span>
-        </div>
-        <div>
-          <span class="index-label">Practice</span>
-          <span>Creative project delivery<br>Design &amp; fabrication</span>
-        </div>
-        <div>
-          <span class="index-label">Background</span>
-          <span>Visual arts, photography<br>Film &amp; television</span>
-        </div>
+      <div class="hero-meta reveal">
+        <div><span>Current</span><strong>Founder &amp; Creative Director<br>Trade Arts</strong></div>
+        <div><span>Focus</span><strong>Creative direction<br>Project delivery</strong></div>
+        <div><span>Background</span><strong>Design, fabrication<br>Visual arts</strong></div>
       </div>
     </section>
 
-    <section class="section section-intro" id="work">
-      <p class="section-number">01 / Selected work</p>
-      <div class="section-heading reveal">
-        <h2>Work that connects ideas, people and practical delivery.</h2>
-        <p>
-          Selected projects from my personal practice and work delivered as Founder and
-          Creative Director of Trade Arts.
-        </p>
+    <section class="section work-section" id="work">
+      <header class="section-head reveal">
+        <p class="eyebrow">Selected work</p>
+        <h2>Three projects. Three ways of turning intent into form.</h2>
+      </header>
+
+      <div class="work-grid">
+        <article class="work-card work-card-wide reveal">
+          <a class="work-card-image" href="/work/revitalise/">
+            <img src="/images/v2/revitalise-main.webp" width="1800" height="1200" loading="lazy" alt="Terracotta-red reVITALise artwork extending through a pedestrian walkway">
+          </a>
+          <div class="work-card-copy">
+            <p class="work-type">Public art development · 2026</p>
+            <h3><a href="/work/revitalise/">reVITALise</a></h3>
+            <p>Translating an artist’s looping visual language into a coordinated, buildable system for a complex public site.</p>
+            <a class="arrow-link" href="/work/revitalise/">View project <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <article class="work-card reveal">
+          <a class="work-card-image" href="/work/studio-practice/">
+            <img src="/images/v2/workshop.webp" width="1800" height="1200" loading="lazy" alt="Purpose-built Trade Arts fabrication workshop in the Northern Rivers">
+          </a>
+          <div class="work-card-copy">
+            <p class="work-type">Creative studio · 2024–present</p>
+            <h3><a href="/work/studio-practice/">Studio practice</a></h3>
+            <p>A design-to-fabrication practice connecting project leadership, workshop delivery and quality.</p>
+            <a class="arrow-link" href="/work/studio-practice/">View practice <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <article class="work-card reveal">
+          <a class="work-card-image work-card-image-art" href="/work/art-and-objects/">
+            <img src="/images/portfolio/three-heads.webp" width="1280" height="914" loading="lazy" alt="Three Heads, an image-based sculptural work by Bryce Noakes">
+          </a>
+          <div class="work-card-copy">
+            <p class="work-type">Personal practice · Ongoing</p>
+            <h3><a href="/work/art-and-objects/">Art &amp; objects</a></h3>
+            <p>Material studies and image-based work exploring the uneasy line between the natural and manufactured.</p>
+            <a class="arrow-link" href="/work/art-and-objects/">View work <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <article class="project project-feature reveal" id="revitalise">
-      <header class="project-header">
-        <p class="project-number">01</p>
-        <div>
-          <p class="project-kicker">Public art / City of Coffs Harbour / 2026</p>
-          <h3>reVITALise</h3>
+    <section class="section profile-section" id="profile">
+      <div class="profile-layout">
+        <div class="profile-title reveal">
+          <p class="eyebrow">Profile</p>
+          <h2>I work where creative intent meets practical delivery.</h2>
         </div>
-        <p class="project-summary">
-          Turning an artist’s looping visual language into a buildable public-art system
-          for a constrained pedestrian walkway.
-        </p>
-      </header>
-
-      <figure class="project-image project-image-wide">
-        <img src="images/portfolio/coffs-revitalise-concept.webp" width="1800" height="1013" alt="Two rendered views of the reVITALise terracotta-red public artwork through the Park Avenue walkway">
-      </figure>
-
-      <div class="project-details">
-        <div>
-          <p class="detail-label">My role</p>
-          <p>Design development, buildability, fabrication planning, stakeholder coordination and Stage 1 delivery through Trade Arts.</p>
-        </div>
-        <div>
-          <p class="detail-label">Working with</p>
-          <p>Artist Belem Lett and the City of Coffs Harbour.</p>
-        </div>
-        <div>
-          <p class="detail-label">Status</p>
-          <p>The commissioned Stage 1 scope was completed and delivered. The City subsequently deferred construction.</p>
-        </div>
-      </div>
-
-      <figure class="project-image project-image-secondary">
-        <img src="images/portfolio/coffs-revitalise-views.webp" width="1800" height="1013" loading="lazy" alt="Six views showing how the reVITALise artwork responds to the walkway, wall and overhead conditions">
-        <figcaption>Six-view concept study showing movement, scale and site relationships.</figcaption>
-      </figure>
-    </article>
-
-    <article class="project reveal">
-      <header class="project-header">
-        <p class="project-number">02</p>
-        <div>
-          <p class="project-kicker">Sculptural fabrication / Visitor-facing display</p>
-          <h3>Pterodactyl</h3>
-        </div>
-        <p class="project-summary">
-          A lightweight, large-scale creature built to hold its character up close while
-          meeting the practical demands of handling, display and installation.
-        </p>
-      </header>
-
-      <figure class="project-image project-image-wide">
-        <img src="images/portfolio/pterodactyl.webp" width="1800" height="1200" loading="lazy" alt="Finished pterodactyl sculpture suspended for a workshop inspection">
-      </figure>
-
-      <div class="project-details">
-        <div>
-          <p class="detail-label">Contribution</p>
-          <p>Fabrication planning, sculptural production, finish coordination and installation thinking through Trade Arts.</p>
-        </div>
-        <div>
-          <p class="detail-label">Focus</p>
-          <p>Scale, character, weight, durability and a convincing public-facing finish.</p>
-        </div>
-        <div>
-          <p class="detail-label">Approach</p>
-          <p>Resolve aesthetic and technical decisions together, rather than treating fabrication as an afterthought.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="project reveal">
-      <header class="project-header">
-        <p class="project-number">03</p>
-        <div>
-          <p class="project-kicker">Precision fabrication / Display models</p>
-          <h3>Aircraft series</h3>
-        </div>
-        <p class="project-summary">
-          Three detailed display models developed as a consistent set, balancing accuracy,
-          repeatability, refined finishing and presentation.
-        </p>
-      </header>
-
-      <div class="project-image-pair">
-        <figure class="project-image">
-          <img src="images/portfolio/model-aircraft-side.webp" width="1800" height="1350" loading="lazy" alt="Finished blue helicopter display model shown in side profile">
-        </figure>
-        <figure class="project-image">
-          <img src="images/portfolio/model-aircraft-group.webp" width="1800" height="1350" loading="lazy" alt="Three finished blue helicopter display models arranged together in the workshop">
-        </figure>
-      </div>
-
-      <div class="project-details">
-        <div>
-          <p class="detail-label">Contribution</p>
-          <p>Technical interpretation, model production, quality control, finish and presentation through Trade Arts.</p>
-        </div>
-        <div>
-          <p class="detail-label">Delivery</p>
-          <p>A repeatable three-object series with consistent colour, detail and mounting.</p>
-        </div>
-        <div>
-          <p class="detail-label">Strength</p>
-          <p>Moving between close visual judgement and the systems required to deliver consistently.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="project personal-practice reveal">
-      <header class="project-header">
-        <p class="project-number">04</p>
-        <div>
-          <p class="project-kicker">Personal practice / Material studies</p>
-          <h3>Art &amp; objects</h3>
-        </div>
-        <p class="project-summary">
-          An ongoing practice built around images, objects, material translation and the
-          slightly uneasy space between the natural and manufactured.
-        </p>
-      </header>
-
-      <div class="art-grid">
-        <figure>
-          <img src="images/portfolio/chrome-osb.webp" width="1000" height="1500" loading="lazy" alt="Chrome OSB sculptural object against a pale background">
-          <figcaption>Chrome OSB</figcaption>
-        </figure>
-        <figure>
-          <img src="images/portfolio/post-animalism.webp" width="1000" height="1500" loading="lazy" alt="Post Animalism sculptural prototype">
-          <figcaption>Post Animalism</figcaption>
-        </figure>
-        <figure>
-          <img src="images/portfolio/three-heads.webp" width="1280" height="914" loading="lazy" alt="Three Heads image-based sculptural work">
-          <figcaption>Three Heads</figcaption>
-        </figure>
-      </div>
-    </article>
-
-    <section class="section profile" id="profile">
-      <p class="section-number">02 / Profile</p>
-      <div class="profile-lead reveal">
-        <h2>Creative enough to see the opportunity. Practical enough to make it real.</h2>
-        <div class="profile-copy">
-          <p>
-            My background crosses visual arts, photography, screen production, set design
-            and specialist fabrication. That range has made me a generalist in the useful
-            sense: I can understand the intent, identify the constraint and organise the
-            people and decisions needed to move forward.
+        <div class="profile-copy reveal">
+          <p class="profile-lead">
+            My background crosses visual arts, photography, film and television,
+            spatial design and specialist fabrication.
           </p>
           <p>
-            Since founding Trade Arts in 2024, I’ve carried responsibility across scope,
-            budgets, schedules, procurement, suppliers, safety, quality and client
-            relationships. I’m most useful where creative ambition needs structure without
-            losing its character.
+            Since founding Trade Arts in 2024, I have led projects from briefing and
+            design development through estimating, procurement, production and handover.
+            I’m most useful when a strong idea needs structure, judgement and forward motion.
           </p>
         </div>
       </div>
-
-      <figure class="profile-image reveal">
-        <img src="images/portfolio/workshop-wide.webp" width="1800" height="1200" loading="lazy" alt="Wide view of the Trade Arts fabrication workshop in Northern NSW">
-        <figcaption>Trade Arts workshop, Northern NSW</figcaption>
-      </figure>
 
       <div class="capability-grid reveal">
-        <div>
-          <p class="capability-number">01</p>
-          <h3>Project delivery</h3>
-          <p>Scope, budgets, schedules, procurement, documentation, risk and handover.</p>
-        </div>
-        <div>
-          <p class="capability-number">02</p>
+        <article>
+          <span>01</span>
+          <h3>Project leadership</h3>
+          <p>Scope, budgets, schedules, stakeholders, procurement, risk and handover.</p>
+        </article>
+        <article>
+          <span>02</span>
           <h3>Design judgement</h3>
-          <p>Visual storytelling, concept development, materials, spatial thinking and finish.</p>
-        </div>
+          <p>Concept development, visual storytelling, materials, spatial thinking and finish.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Physical delivery</h3>
+          <p>Fabrication planning, suppliers, workshop production, installation and quality.</p>
+        </article>
+      </div>
+
+      <figure class="workshop-image reveal">
+        <img src="/images/v2/workshop.webp" width="1800" height="1200" loading="lazy" alt="Trade Arts workshop in the Northern Rivers">
+        <figcaption>Trade Arts workshop, Northern Rivers</figcaption>
+      </figure>
+    </section>
+
+    <section class="section experience-section" id="experience">
+      <div class="experience-heading reveal">
         <div>
-          <p class="capability-number">03</p>
-          <h3>Physical production</h3>
-          <p>Fabrication, workshop planning, suppliers, installation and public-facing durability.</p>
+          <p class="eyebrow">Experience</p>
+          <h2>Creative direction, design and hands-on delivery.</h2>
         </div>
-        <div>
-          <p class="capability-number">04</p>
-          <h3>Practical systems</h3>
-          <p>Project controls, costing, back-costing and carefully governed applied-AI workflows.</p>
+        <div class="experience-links">
+          <a class="button button-dark" href="/bryce-noakes-cv.pdf">View CV</a>
+          <a class="quiet-link" href="https://au.linkedin.com/in/bryce-noakes-381408269" target="_blank" rel="noopener">Full experience on LinkedIn ↗</a>
         </div>
+      </div>
+
+      <div class="timeline reveal">
+        <article>
+          <p>2024 — present</p>
+          <div><h3>Founder &amp; Creative Director</h3><span>Trade Arts · Northern NSW</span></div>
+        </article>
+        <article>
+          <p>2021 — 2023</p>
+          <div><h3>Design, set decoration &amp; production</h3><span>Australian and international film &amp; television</span></div>
+        </article>
+        <article>
+          <p>2018 — 2020</p>
+          <div><h3>Studio, scenic &amp; photography practice</h3><span>New York and Australia</span></div>
+        </article>
+        <article>
+          <p>Education</p>
+          <div><h3>Bachelor of Design</h3><span>Photography &amp; Situated Media · UTS</span></div>
+        </article>
       </div>
     </section>
 
-    <section class="section experience" id="experience">
-      <p class="section-number">03 / Experience</p>
-      <div class="experience-layout">
-        <div class="experience-intro reveal">
-          <h2>A career built across creative direction, design and hands-on delivery.</h2>
-          <p>
-            I bring transferable project leadership rather than a conventional
-            local-government career path, and I’m direct about that distinction.
-          </p>
-        </div>
-
-        <div class="timeline reveal">
-          <article class="timeline-item">
-            <p class="timeline-date">2024 — present</p>
-            <div>
-              <h3>Founder &amp; Creative Director</h3>
-              <p>Trade Arts, Northern NSW</p>
-              <p class="timeline-detail">Creative project leadership from brief and estimating through design, procurement, production and handover.</p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <p class="timeline-date">2021 — 2023</p>
-            <div>
-              <h3>Design, set decoration &amp; production</h3>
-              <p>Australian and international film and television</p>
-              <p class="timeline-detail">Design assistant, set designer, lead hand, on-set dresser and installation roles across multidisciplinary productions.</p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <p class="timeline-date">2018 — 2020</p>
-            <div>
-              <h3>Studio, scenic &amp; photography practice</h3>
-              <p>New York and Australia</p>
-              <p class="timeline-detail">Studio management, photo technical work, scenic carpentry and freelance photography.</p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <p class="timeline-date">Education</p>
-            <div>
-              <h3>Bachelor of Design</h3>
-              <p>Photography and Situated Media, University of Technology Sydney</p>
-              <p class="timeline-detail">Including a 2017 Build Scholarship in Immersive Spaces through Ansbach University of Applied Sciences and the Venice Biennale.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact section" id="contact">
-      <p class="section-number">04 / Contact</p>
-      <div class="contact-layout reveal">
-        <div>
-          <h2>Let’s make something ambitious and deliverable.</h2>
-          <p>Based in Northern NSW and open to remote or practical flexible-hybrid roles.</p>
-        </div>
+    <section class="contact-section" id="contact">
+      <div class="contact-inner reveal">
+        <p class="eyebrow">Contact</p>
+        <h2>Let’s talk about the next project.</h2>
+        <p>Based in Northern NSW. Open to remote and practical flexible-hybrid roles.</p>
         <div class="contact-links">
-          <a id="email-link" href="#">Email Bryce <span aria-hidden="true">↗</span></a>
-          <a href="https://au.linkedin.com/in/bryce-noakes-381408269" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-          <a href="https://www.tradearts.work" target="_blank" rel="noopener">Trade Arts <span aria-hidden="true">↗</span></a>
+          <a id="email-link" href="#">Email Bryce ↗</a>
+          <a href="https://au.linkedin.com/in/bryce-noakes-381408269" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://www.tradearts.work" target="_blank" rel="noopener">Trade Arts ↗</a>
         </div>
       </div>
     </section>
@@ -346,7 +213,7 @@
 
   <footer class="site-footer">
     <p>© <span id="year">2026</span> Bryce Noakes</p>
-    <p>Creative project delivery / Design / Fabrication</p>
+    <p>Creative project leadership · Design · Delivery</p>
     <a href="#top">Back to top ↑</a>
   </footer>
 </body>

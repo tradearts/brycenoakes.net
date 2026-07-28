@@ -2,13 +2,10 @@
 
 Personal website for Bryce Noakes.
 
-## Current work
+## Current build
 
-The redesign is being developed on branch:
-
-`redesign/job-positioning-v1`
-
-The production site remains unchanged until Bryce approves a reviewed build.
+Version two is a concise job-positioned portfolio with a curated homepage,
+three project pages and a neutral public CV.
 
 ## Local preview
 
@@ -25,7 +22,11 @@ Then open:
 ## Structure
 
 - `index.html` - page content and semantic structure
+- `work/` - project case studies
+- `cv.html` - source for the public CV
+- `bryce-noakes-cv.pdf` - downloadable public CV
 - `styles.css` - responsive visual system
 - `script.js` - menu, contact link and progressive reveal behaviour
 - `images/portfolio/` - optimised local portfolio imagery
+- `images/v2/` - version-two project and studio imagery
 - `IMAGE-SOURCES.md` - source and attribution record

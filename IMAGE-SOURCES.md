@@ -28,8 +28,8 @@ Source:
 
 Drive ID `1l42KAV1IaqLHmdlKV3iS_5nMpePgKDb9`
 
-- PDF page 4 -> `images/portfolio/coffs-revitalise-concept.webp`
-- PDF page 5 -> `images/portfolio/coffs-revitalise-views.webp`
+- Individual render extracted from PDF page 4 -> `images/v2/revitalise-secondary.webp`
+- Individual renders extracted from PDF page 5 -> `images/v2/hero-revitalise.webp` and `images/v2/revitalise-main.webp`
 
 Public attribution:
 
@@ -37,3 +37,15 @@ Public attribution:
 - Design development, buildability, fabrication planning and Stage 1 delivery: Trade Arts
 - Status: commissioned Stage 1 completed and delivered; construction subsequently deferred by the City
 
+## Workshop
+
+Source:
+
+`TA HQ/TA_PORTFOLIO/05_BEST_PROJECT_IMAGES/00_CURATED_MASTER_2026-07/Workshop - Team - Process`
+
+- Drive ID `1NoU9Iar7mXw_p3bzRxp2PkEnAXNBzBgt` -> `images/v2/workshop.webp`
+
+## Social preview
+
+`images/og-bryce-noakes.jpg` is a composite made from the final local
+reVITALise, workshop and Chrome OSB website assets.
