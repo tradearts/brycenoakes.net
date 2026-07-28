@@ -18,9 +18,9 @@ Source library: `TA HQ/PHOTO SHOOT/PR_Selected_Images/Highlights` (delivered at
 1024 × 1535; no higher-resolution master exists in Drive) plus the architectural
 workshop set (`_MG_65xx-Enhanced-NR`, 5616 × 3744).
 
-- `images/studio/workshop-wide.jpg` (2800 px) and `workshop-wide-1400.jpg`
-  - Source: `_MG_6598-Enhanced-NR.jpeg`, 5616 × 3744
-  - Use: homepage studio environment, served via `srcset`
+- `images/studio/workshop-active.jpg` (2738 px) and `workshop-active-1400.jpg`
+  - Source: `_MG_6806.JPG`, 2738 × 1825
+  - Use: homepage workshop-in-motion image, served via `srcset`
 - `images/studio/bryce-portrait-looking-away.jpg` (1024 × 1535)
   - Source: `Highlights/tradearts25.jpg`
   - Use: profile portrait; black-and-white full-length frame with Bryce looking
