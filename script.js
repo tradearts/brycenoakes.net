@@ -47,7 +47,7 @@
 
   if (!reducedMotion && precisePointer) {
     document
-      .querySelectorAll(".site-nav a, .work-card-copy h3 a, .contact-links a, .case-next a")
+      .querySelectorAll(".site-nav a, .work-card h3 a, .contact-links a, .case-next a")
       .forEach((link) => {
         const label = link.textContent.trim();
         if (!label) return;

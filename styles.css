@@ -1,10 +1,13 @@
 :root {
   --white: #ffffff;
   --ink: #141414;
-  --muted: #737373;
+  --muted: #6e6e6e;
   --line: #e5e5e2;
   --soft: #f6f6f4;
+  /* --orange is the identity mark: dot, rules, registration marks, focus ring.
+     --orange-ink is the same hue darkened to clear 4.5:1 on white for text. */
   --orange: #ed5a2a;
+  --orange-ink: #cd4720;
   --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
   --gutter: clamp(1.25rem, 3.2vw, 3rem);
   --content: 100rem;
@@ -50,7 +53,7 @@ a {
 }
 
 a:hover {
-  color: var(--orange);
+  color: var(--orange-ink);
 }
 
 .text-roll-mask {
@@ -76,7 +79,7 @@ a:hover {
 }
 
 .text-roll-face:last-child {
-  color: var(--orange);
+  color: var(--orange-ink);
 }
 
 .text-roll:hover .text-roll-track,
@@ -180,7 +183,7 @@ h3 {
 }
 
 .site-nav a:hover {
-  color: var(--orange);
+  color: var(--orange-ink);
 }
 
 .menu-toggle {
@@ -200,8 +203,7 @@ h3 {
 .eyebrow,
 .work-type,
 .hero-meta span,
-.timeline > article > p,
-.role-meta {
+.timeline > article > p {
   margin: 0;
   color: var(--muted);
   font-size: 0.68rem;
@@ -222,10 +224,11 @@ h3 {
 
 .hero {
   display: flex;
-  min-height: calc(100svh - 3.75rem);
+  /* Capped so tall viewports do not open an arbitrary void above the meta rail. */
+  min-height: min(calc(100svh - 3.75rem), 52rem);
   flex-direction: column;
   justify-content: space-between;
-  gap: 5rem;
+  gap: clamp(3rem, 6vw, 5rem);
   padding: clamp(4.5rem, 9vw, 8.5rem) var(--gutter) clamp(2.25rem, 4vw, 4rem);
 }
 
@@ -271,10 +274,11 @@ h3 {
 .button {
   position: relative;
   display: inline-flex;
+  min-width: 9.5rem;
   min-height: 2.65rem;
   align-items: center;
   justify-content: center;
-  padding: 0.7rem 1rem;
+  padding: 0.7rem 1.25rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--ink);
@@ -310,8 +314,8 @@ h3 {
 }
 
 .button-dark:hover {
-  border-color: var(--orange);
-  background: var(--orange);
+  border-color: var(--orange-ink);
+  background: var(--orange-ink);
   color: var(--white);
 }
 
@@ -391,10 +395,10 @@ h3 {
 }
 
 .studio-hero img {
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 16 / 9;
   border-radius: 0.75rem;
   object-fit: cover;
-  object-position: center 48%;
+  object-position: center 55%;
 }
 
 .studio-hero figcaption {
@@ -433,29 +437,24 @@ h3 {
 
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(4rem, 7vw, 7rem) clamp(1.25rem, 2.4vw, 2.4rem);
-}
-
-.work-card-wide {
-  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(3.5rem, 6vw, 6rem) clamp(1.25rem, 2.4vw, 2.4rem);
 }
 
 .work-card {
+  position: relative;
+  display: flex;
   min-width: 0;
+  flex-direction: column;
 }
 
 .work-card-image {
   position: relative;
-  display: block;
   overflow: hidden;
+  margin: 0 0 1.15rem;
   aspect-ratio: 4 / 3;
   border-radius: 0.75rem;
   background: var(--soft);
-}
-
-.work-card-wide .work-card-image {
-  aspect-ratio: 2 / 1;
 }
 
 .work-card-image::before,
@@ -489,42 +488,49 @@ h3 {
   transition: transform 600ms cubic-bezier(0.2, 0.65, 0.3, 1);
 }
 
-.work-card-image:hover img {
+.work-card:hover .work-card-image img {
   transform: scale(1.018);
 }
 
-.work-card-image-art img {
-  object-position: center 44%;
-}
-
-.work-card-image-flybuys img {
-  object-position: center 52%;
-}
-
-.work-card-copy {
-  display: grid;
-  grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
-  gap: 1.5rem;
-  align-items: start;
-  padding-top: 1rem;
-}
-
-.work-card-copy h3 {
-  margin-bottom: 0.4rem;
-  font-size: 1rem;
+.work-card h3 {
+  margin: 0.55rem 0 0.5rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
-.work-card-copy p:not(.work-type) {
-  max-width: 42rem;
-  margin-bottom: 0.5rem;
+.work-card h3 a {
+  text-decoration: none;
+}
+
+/* The title link owns the whole card, so there is one clear link per project. */
+.work-card h3 a::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.work-note {
+  margin-bottom: 0.9rem;
   color: var(--muted);
   font-size: 0.88rem;
 }
 
+.work-evidence {
+  margin: 0 0 0.65rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+}
+
+.work-card .arrow-link {
+  margin-top: auto;
+}
+
 .work-type {
-  color: var(--orange);
+  color: var(--orange-ink);
 }
 
 .profile-layout {
@@ -587,7 +593,7 @@ h3 {
 }
 
 .capability-grid .eyebrow {
-  color: var(--orange);
+  color: var(--orange-ink);
 }
 
 .capability-grid h3 {
@@ -607,46 +613,33 @@ h3 {
   font-size: 0.88rem;
 }
 
-.profile-media {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 2rem);
-  align-items: end;
-  margin-top: clamp(4rem, 8vw, 8rem);
-}
-
-.portrait-image,
-.workshop-image {
+/* Portrait is shown at a size its 680 px source stays sharp at on 2x displays. */
+.portrait-image {
   position: relative;
-  overflow: hidden;
-  margin: 0;
-  border-radius: 0.75rem;
-  background: var(--soft);
+  width: min(100%, 21.25rem);
+  margin: clamp(2.5rem, 4vw, 3.5rem) 0 0;
 }
 
 .portrait-image img {
   aspect-ratio: 4 / 5;
+  border-radius: 0.75rem;
   object-fit: cover;
-  object-position: center 18%;
-  transform: scale(1.34);
-  transform-origin: 50% 24%;
+  object-position: center 20%;
 }
 
-.workshop-image img {
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center 42%;
-}
-
-.workshop-image::after {
+.portrait-image::after {
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  width: 1rem;
-  height: 1rem;
+  right: 0.85rem;
+  top: 0.85rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-top: 1px solid var(--orange);
   border-right: 1px solid var(--orange);
-  border-bottom: 1px solid var(--orange);
   content: "";
+}
+
+.portrait-image figcaption {
+  padding-top: 0.7rem;
 }
 
 .experience-heading {
@@ -667,8 +660,7 @@ h3 {
   border-top: 1px solid var(--line);
 }
 
-.timeline > article,
-.role {
+.timeline > article {
   position: relative;
   display: grid;
   grid-template-columns: minmax(7rem, 0.42fr) minmax(0, 1.58fr);
@@ -677,8 +669,7 @@ h3 {
   border-bottom: 1px solid var(--line);
 }
 
-.timeline > article::before,
-.role::before {
+.timeline > article::before {
   position: absolute;
   top: 50%;
   left: 0;
@@ -691,8 +682,7 @@ h3 {
   transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.timeline h3,
-.role h3 {
+.timeline h3 {
   margin-bottom: 0;
   font-size: 0.95rem;
   font-weight: 600;
@@ -702,47 +692,50 @@ h3 {
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.timeline article > p:last-child,
-.role > p:last-child {
+.timeline article > p:last-child {
   margin-bottom: 0;
   color: var(--muted);
   font-size: 0.88rem;
 }
 
 .experience-links {
-  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem 1.25rem;
 }
 
-.studio-pair {
+/* Measured detail register: monochrome, small, consistently framed. */
+.detail-strip {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1rem, 2vw, 2rem);
   margin-top: clamp(4rem, 7vw, 7rem);
 }
 
-.studio-pair figure {
-  overflow: hidden;
+.detail-strip figure {
   margin: 0;
-  border-radius: 0.75rem;
-  background: var(--soft);
 }
 
-.studio-pair img {
-  aspect-ratio: 3 / 2;
+.detail-strip img {
+  aspect-ratio: 4 / 5;
+  border-radius: 0.75rem;
+  background: var(--soft);
   object-fit: cover;
 }
 
-.studio-pair figure:first-child img {
-  object-position: center 52%;
+.detail-strip figcaption {
+  display: flex;
+  gap: 0.6rem;
+  padding-top: 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
 }
 
-.studio-pair figure:last-child img {
-  object-position: center 35%;
-}
-
-.studio-pair figcaption,
-.case-gallery figcaption {
-  padding: 0.65rem 0.8rem 0.75rem;
+.detail-strip figcaption span {
+  color: var(--orange-ink);
+  font-variant-numeric: tabular-nums;
 }
 
 .contact-section {
@@ -754,7 +747,7 @@ h3 {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(3rem, 8vw, 9rem);
-  align-items: end;
+  align-items: start;
   padding: clamp(5.5rem, 9vw, 9rem) var(--gutter);
 }
 
@@ -762,27 +755,13 @@ h3 {
   max-width: 18ch;
 }
 
-.contact-inner > .eyebrow {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.contact-inner > h2 {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.contact-inner > p:not(.eyebrow) {
-  grid-column: 2;
-  grid-row: 1;
-  max-width: 34rem;
-  margin-bottom: 0;
+.contact-note {
+  max-width: 30rem;
+  margin: 1.4rem 0 0;
   color: var(--muted);
 }
 
 .contact-links {
-  grid-column: 2;
-  grid-row: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -875,9 +854,22 @@ h3 {
   object-fit: cover;
 }
 
+/* A standing subject keeps its portrait frame rather than being cropped to a band. */
+.case-cover-flybuys {
+  max-width: 40rem;
+}
+
 .case-cover-flybuys img {
-  aspect-ratio: 16 / 9;
-  object-position: center 50%;
+  aspect-ratio: 3 / 4;
+}
+
+/* Concept renders top out at 1424 px, so they are never shown wider than that. */
+.case-cover-render {
+  max-width: 44rem;
+}
+
+.case-cover-render img {
+  aspect-ratio: 1424 / 800;
 }
 
 .case-content {
@@ -964,50 +956,47 @@ figcaption {
   font-size: 0.72rem;
 }
 
-.portrait-image figcaption,
-.workshop-image figcaption {
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-  padding: 0.35rem 0.5rem;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--ink);
-}
-
 .case-gallery img {
   width: 100%;
-  height: clamp(24rem, 39vw, 42rem);
+  aspect-ratio: 4 / 3;
   object-fit: cover;
 }
 
 .case-gallery-flybuys img {
-  object-position: center 50%;
+  aspect-ratio: 3 / 4;
 }
 
+.case-gallery-render {
+  max-width: 70rem;
+}
+
+.case-gallery-render img {
+  aspect-ratio: 11 / 8;
+}
+
+/* Works are shown no larger than their source supports at 2x. */
 .art-case-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 2rem);
+  grid-template-columns: repeat(2, minmax(0, 31.25rem));
+  justify-content: space-between;
+  gap: clamp(2.5rem, 5vw, 5rem) clamp(1rem, 2vw, 2rem);
   padding-bottom: clamp(5.5rem, 9vw, 9rem);
-}
-
-.art-case-grid figure:nth-child(1),
-.art-case-grid figure:nth-child(4) {
-  grid-column: span 7;
-}
-
-.art-case-grid figure:nth-child(2) {
-  grid-column: span 5;
-}
-
-.art-case-grid figure:nth-child(3) {
-  grid-column: 1 / -1;
 }
 
 .art-case-grid figure {
   overflow: visible;
+  margin: 0;
   background: transparent;
+}
+
+.art-case-grid figure:nth-child(2) {
+  align-self: end;
+}
+
+.art-case-grid figure:nth-child(3) {
+  grid-column: 1 / -1;
+  max-width: 40rem;
+  margin-inline: auto;
 }
 
 .art-case-grid img {
@@ -1017,7 +1006,21 @@ figcaption {
 }
 
 .art-case-grid figure:nth-child(3) img {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1280 / 914;
+}
+
+.case-story-head {
+  align-self: start;
+}
+
+.case-aside {
+  max-width: 12rem;
+  margin: clamp(2rem, 3.5vw, 3rem) 0 0;
+}
+
+.case-aside img {
+  border-radius: 0.75rem;
+  background: var(--soft);
 }
 
 .case-next {
@@ -1038,14 +1041,6 @@ figcaption {
   text-decoration: none;
 }
 
-.compact {
-  max-width: 46rem;
-}
-
-.muted {
-  color: var(--muted);
-}
-
 .reveal {
   opacity: 0;
   transform: translateY(0.45rem);
@@ -1059,7 +1054,7 @@ figcaption {
 
 @media (hover: hover) and (pointer: fine) {
   .signal-word:hover {
-    color: var(--orange);
+    color: var(--orange-ink);
     background-size: 100% 1px;
     letter-spacing: -0.032em;
   }
@@ -1075,24 +1070,32 @@ figcaption {
   }
 
   .capability-grid article:hover h3 {
-    color: var(--orange);
+    color: var(--orange-ink);
     transform: translateX(0.32rem);
   }
 
-  .timeline > article:hover::before,
-  .role:hover::before {
+  .timeline > article:hover::before {
     transform: scaleX(1);
   }
 
-  .timeline > article:hover h3,
-  .role:hover h3 {
-    color: var(--orange);
+  .timeline > article:hover h3 {
+    color: var(--orange-ink);
     transform: translateX(0.52rem);
   }
 }
 
+@media (max-width: 1000px) {
+  .work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .work-card:last-child {
+    grid-column: 1 / -1;
+    max-width: calc(50% - clamp(0.625rem, 1.2vw, 1.2rem));
+  }
+}
+
 @media (max-width: 900px) {
-  .work-card-copy,
   .profile-layout,
   .experience-heading,
   .contact-inner,
@@ -1217,8 +1220,8 @@ figcaption {
   }
 
   .hero {
-    min-height: calc(92svh - 3.75rem);
-    gap: 4rem;
+    min-height: min(calc(92svh - 3.75rem), 40rem);
+    gap: 3rem;
     padding-top: clamp(4rem, 14vw, 6rem);
   }
 
@@ -1288,21 +1291,15 @@ figcaption {
   }
 
   .work-grid {
-    gap: 4rem;
+    gap: 3.5rem;
   }
 
-  .work-card-wide {
-    grid-column: auto;
+  .work-card:last-child {
+    max-width: none;
   }
 
-  .work-card-wide .work-card-image,
-  .work-card-image {
-    aspect-ratio: 4 / 3;
-  }
-
-  .work-card-copy {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
+  .experience-links {
+    justify-content: flex-start;
   }
 
   .profile-layout,
@@ -1325,40 +1322,35 @@ figcaption {
     font-size: 1.08rem;
   }
 
-  .profile-media {
-    grid-template-columns: 1fr;
-    margin-top: 4rem;
+  /* Small screens read the details as a snapped strip rather than three
+     illegible thumbnails. Scrolling stays inside the strip. */
+  .detail-strip {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 3.5rem;
+    padding-bottom: 0.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
   }
 
-  .studio-pair {
-    grid-template-columns: 1fr;
-    margin-top: 4rem;
+  .detail-strip::-webkit-scrollbar {
+    display: none;
   }
 
-  .studio-pair img {
-    aspect-ratio: 4 / 3;
+  .detail-strip figure {
+    flex: 0 0 58%;
+    scroll-snap-align: start;
   }
 
   .portrait-image {
-    width: min(100%, 30rem);
+    width: min(100%, 17rem);
+    margin-top: 2.25rem;
   }
 
-  .timeline > article,
-  .role {
+  .timeline > article {
     grid-template-columns: 1fr;
     gap: 0.35rem;
-  }
-
-  .contact-inner {
-    align-items: start;
-  }
-
-  .contact-inner > .eyebrow,
-  .contact-inner > h2,
-  .contact-inner > p:not(.eyebrow),
-  .contact-links {
-    grid-column: auto;
-    grid-row: auto;
   }
 
   .contact-links a {
