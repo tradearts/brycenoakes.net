@@ -4,8 +4,10 @@ Personal website for Bryce Noakes.
 
 ## Current build
 
-Version two is a concise job-positioned portfolio with a curated homepage,
-three project pages and a neutral public CV.
+Version three is a concise job-positioned portfolio with a white, all-sans
+visual system, restrained orange accents, three project pages and a neutral
+public CV. Its layout is informed by the clarity and spacing of the supplied
+Jordan Hughes reference while retaining an original Trade Arts-adjacent identity.
 
 ## Local preview
 
@@ -28,5 +30,5 @@ Then open:
 - `styles.css` - responsive visual system
 - `script.js` - menu, contact link and progressive reveal behaviour
 - `images/portfolio/` - optimised local portfolio imagery
-- `images/v2/` - version-two project and studio imagery
+- `images/v2/` - curated project and studio imagery
 - `IMAGE-SOURCES.md` - source and attribution record

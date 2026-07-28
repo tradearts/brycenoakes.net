@@ -36,6 +36,10 @@
     window.addEventListener("resize", () => {
       if (window.innerWidth > 720) closeMenu();
     });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
