@@ -225,11 +225,11 @@ h3 {
 .hero {
   display: flex;
   /* Capped so tall viewports do not open an arbitrary void above the meta rail. */
-  min-height: min(calc(100svh - 3.75rem), 52rem);
+  min-height: min(calc(92svh - 3.75rem), 46rem);
   flex-direction: column;
   justify-content: space-between;
-  gap: clamp(3rem, 6vw, 5rem);
-  padding: clamp(4.5rem, 9vw, 8.5rem) var(--gutter) clamp(2.25rem, 4vw, 4rem);
+  gap: clamp(2.5rem, 4vw, 4rem);
+  padding: clamp(3.75rem, 7vw, 6.5rem) var(--gutter) clamp(1.75rem, 3vw, 2.75rem);
 }
 
 .hero-copy {
@@ -380,13 +380,13 @@ h3 {
   position: relative;
   width: min(100%, calc(var(--content) + (2 * var(--gutter))));
   margin: 0 auto;
-  padding: 0 var(--gutter) clamp(4rem, 7vw, 7rem);
+  padding: 0 var(--gutter) clamp(3rem, 5vw, 5rem);
 }
 
 .studio-hero::after {
   position: absolute;
   right: calc(var(--gutter) + 1rem);
-  bottom: calc(clamp(4rem, 7vw, 7rem) + 1rem);
+  bottom: calc(clamp(3rem, 5vw, 5rem) + 1rem);
   width: 1rem;
   height: 1rem;
   border-right: 1px solid var(--orange);
@@ -535,6 +535,61 @@ h3 {
 
 .work-type {
   color: var(--orange-ink);
+}
+
+.community-evidence {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(18rem, 1.3fr);
+  gap: 1.5rem clamp(2rem, 6vw, 7rem);
+  margin-top: clamp(4rem, 7vw, 7rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.community-evidence h3 {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+}
+
+.community-evidence-summary {
+  max-width: 48rem;
+  margin: 0;
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+.community-evidence dl {
+  display: grid;
+  grid-column: 2;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.community-evidence dl > div {
+  padding: 0.9rem 1rem 0 0;
+}
+
+.community-evidence dl > div + div {
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
+}
+
+.community-evidence dt {
+  margin-bottom: 0.35rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.community-evidence dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
 }
 
 .profile-layout {
@@ -695,6 +750,20 @@ h3 {
   transition:
     color 220ms ease,
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.timeline article > div > span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.timeline-detail {
+  max-width: 52rem;
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
 .timeline article > p:last-child {
@@ -874,7 +943,7 @@ h3 {
 
 .case-facts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   margin-top: clamp(3rem, 5vw, 5rem);
   border-top: 1px solid var(--line);
 }
@@ -1216,9 +1285,9 @@ figcaption {
   }
 
   .hero {
-    min-height: min(calc(92svh - 3.75rem), 40rem);
-    gap: 3rem;
-    padding-top: clamp(4rem, 14vw, 6rem);
+    min-height: min(calc(86svh - 3.75rem), 37rem);
+    gap: 2.5rem;
+    padding-top: clamp(3.5rem, 12vw, 5rem);
   }
 
   .hero h1 {
@@ -1250,11 +1319,11 @@ figcaption {
   }
 
   .studio-hero {
-    padding-bottom: 4rem;
+    padding-bottom: 3rem;
   }
 
   .studio-hero::after {
-    bottom: 5rem;
+    bottom: 4rem;
   }
 
   .studio-hero img {
@@ -1292,6 +1361,24 @@ figcaption {
 
   .work-card:last-child {
     max-width: none;
+  }
+
+  .community-evidence {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .community-evidence dl {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .community-evidence dl > div,
+  .community-evidence dl > div + div {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
+    border-left: 0;
   }
 
   .experience-links {
