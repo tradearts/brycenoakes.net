@@ -613,7 +613,8 @@ h3 {
   font-size: 0.88rem;
 }
 
-/* Portrait is shown at a size its 680 px source stays sharp at on 2x displays. */
+/* Portrait is capped well below its 1024 px source width so it stays sharp on
+   high-density displays. */
 .portrait-image {
   position: relative;
   width: min(100%, 21.25rem);

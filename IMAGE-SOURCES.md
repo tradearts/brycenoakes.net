@@ -21,10 +21,10 @@ workshop set (`_MG_65xx-Enhanced-NR`, 5616 × 3744).
 - `images/studio/workshop-wide.jpg` (2800 px) and `workshop-wide-1400.jpg`
   - Source: `_MG_6598-Enhanced-NR.jpeg`, 5616 × 3744
   - Use: homepage studio environment, served via `srcset`
-- `images/studio/bryce-portrait.jpg` (680 × 850)
-  - Source: `Highlights/tradearts27.jpg`, cropped from full-length to a waist-up
-    4:5 portrait to remove background clutter and let the face read
-  - Use: profile portrait, displayed at 340 CSS px so it stays sharp at 2×
+- `images/studio/bryce-portrait-looking-away.jpg` (1024 × 1535)
+  - Source: `Highlights/tradearts25.jpg`
+  - Use: profile portrait; black-and-white full-length frame with Bryce looking
+    away, displayed in the existing 4:5 crop at no more than 340 CSS px
 - `images/studio/detail-measure.jpg` — `Highlights/tradearts43.jpg` (callipers)
 - `images/studio/detail-fixings.jpg` — `Highlights/tradearts42.jpg` (fasteners)
 - `images/studio/detail-finish.jpg` — `Highlights/tradearts40.jpg` (thread and snips)
