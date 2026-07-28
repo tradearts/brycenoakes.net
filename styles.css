@@ -53,6 +53,37 @@ a:hover {
   color: var(--orange);
 }
 
+.text-roll-mask {
+  display: inline-block;
+  height: 1.25em;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.text-roll-track {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  transform: translateY(0);
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.text-roll-face {
+  display: block;
+  flex: 0 0 1.25em;
+  white-space: nowrap;
+}
+
+.text-roll-face:last-child {
+  color: var(--orange);
+}
+
+.text-roll:hover .text-roll-track,
+.text-roll:focus-visible .text-roll-track {
+  transform: translateY(-50%);
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
@@ -211,6 +242,17 @@ h3 {
   line-height: 1.12;
 }
 
+.signal-word {
+  background-image: linear-gradient(var(--orange), var(--orange));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition:
+    color 260ms ease,
+    background-size 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    letter-spacing 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .hero-intro {
   max-width: 43rem;
   margin-bottom: 2rem;
@@ -227,6 +269,7 @@ h3 {
 }
 
 .button {
+  position: relative;
   display: inline-flex;
   min-height: 2.65rem;
   align-items: center;
@@ -238,6 +281,21 @@ h3 {
   font-size: 0.78rem;
   font-weight: 500;
   text-decoration: none;
+}
+
+.button::after {
+  position: absolute;
+  right: 0.52rem;
+  bottom: 0.34rem;
+  width: 0.24rem;
+  height: 0.24rem;
+  background: var(--orange);
+  content: "";
+  opacity: 0;
+  transform: scale(0.3);
+  transition:
+    opacity 180ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .button:hover {
@@ -259,12 +317,41 @@ h3 {
 
 .quiet-link,
 .arrow-link {
+  --motion-x: 0px;
+  --motion-y: 0px;
+  position: relative;
   display: inline-flex;
   align-items: center;
   padding: 0.65rem 0.2rem;
   font-size: 0.78rem;
   font-weight: 500;
   text-decoration: none;
+  transform: translate3d(var(--motion-x), var(--motion-y), 0);
+  transition:
+    color 180ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.quiet-link::after,
+.arrow-link::after {
+  position: absolute;
+  right: 0.2rem;
+  bottom: 0.46rem;
+  left: 0.2rem;
+  height: 1px;
+  background: var(--orange);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.quiet-link:hover::after,
+.quiet-link:focus-visible::after,
+.arrow-link:hover::after,
+.arrow-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .hero-meta {
@@ -477,7 +564,21 @@ h3 {
 }
 
 .capability-grid article {
+  position: relative;
   padding: 1.2rem clamp(1.2rem, 2vw, 2.2rem) 0 0;
+}
+
+.capability-grid article::before {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--orange);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .capability-grid article + article {
@@ -494,6 +595,9 @@ h3 {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  transition:
+    color 220ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .capability-grid p:last-child {
@@ -565,11 +669,26 @@ h3 {
 
 .timeline > article,
 .role {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(7rem, 0.42fr) minmax(0, 1.58fr);
   gap: 1.5rem;
   padding: 1.15rem 0;
   border-bottom: 1px solid var(--line);
+}
+
+.timeline > article::before,
+.role::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0.35rem;
+  height: 1px;
+  background: var(--orange);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .timeline h3,
@@ -578,6 +697,9 @@ h3 {
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  transition:
+    color 220ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .timeline article > p:last-child,
@@ -933,6 +1055,40 @@ figcaption {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .signal-word:hover {
+    color: var(--orange);
+    background-size: 100% 1px;
+    letter-spacing: -0.032em;
+  }
+
+  .button:hover::after,
+  .button:focus-visible::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .capability-grid article:hover::before {
+    transform: scaleX(1);
+  }
+
+  .capability-grid article:hover h3 {
+    color: var(--orange);
+    transform: translateX(0.32rem);
+  }
+
+  .timeline > article:hover::before,
+  .role:hover::before {
+    transform: scaleX(1);
+  }
+
+  .timeline > article:hover h3,
+  .role:hover h3 {
+    color: var(--orange);
+    transform: translateX(0.52rem);
+  }
 }
 
 @media (max-width: 900px) {
@@ -1291,5 +1447,17 @@ figcaption {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .text-roll-track,
+  .text-roll:hover .text-roll-track,
+  .text-roll:focus-visible .text-roll-track {
+    transform: none;
+  }
+
+  .quiet-link,
+  .arrow-link {
+    --motion-x: 0px !important;
+    --motion-y: 0px !important;
   }
 }
