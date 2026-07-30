@@ -1186,11 +1186,12 @@ figcaption {
 
 @media (max-width: 720px) {
   html {
-    scroll-padding-top: 3.75rem;
+    scroll-padding-top: 4.25rem;
   }
 
   .site-header {
-    min-height: 3.75rem;
+    min-height: 4.25rem;
+    backdrop-filter: none;
   }
 
   .wordmark {
@@ -1257,7 +1258,7 @@ figcaption {
 
   .site-nav {
     position: fixed;
-    inset: 3.75rem 0 0;
+    inset: 4.25rem 0 0;
     z-index: 101;
     display: flex;
     visibility: hidden;
