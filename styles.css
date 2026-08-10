@@ -215,6 +215,7 @@ h3 {
 
 .hero,
 .section,
+.pathway-section,
 .contact-inner,
 .site-footer,
 .case-main {
@@ -408,6 +409,59 @@ h3 {
   padding-top: 0.7rem;
 }
 
+.pathway-section {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.65fr) minmax(0, 1.35fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  padding: clamp(5.5rem, 9vw, 9rem) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+.pathway-intro h2 {
+  max-width: 20ch;
+  margin: 1.05rem 0 0;
+  font-size: clamp(1.8rem, 2.6vw, 2.75rem);
+  line-height: 1.18;
+}
+
+.pathway-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+}
+
+.pathway-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1.5rem clamp(1.5rem, 2.5vw, 2.5rem) 0 0;
+}
+
+.pathway-card + .pathway-card {
+  padding-right: 0;
+  padding-left: clamp(1.5rem, 2.5vw, 2.5rem);
+  border-left: 1px solid var(--line);
+}
+
+.pathway-card h3 {
+  max-width: 17ch;
+  margin: 1.1rem 0 1rem;
+  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+  line-height: 1.22;
+}
+
+.pathway-card > p:not(.work-type) {
+  max-width: 31rem;
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.pathway-card .arrow-link {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
 .section {
   padding: clamp(5.5rem, 9vw, 9rem) var(--gutter);
   border-top: 1px solid var(--line);
@@ -490,6 +544,10 @@ h3 {
 
 .flybuys-card-image img {
   object-position: 54% center;
+}
+
+.screen-pack-image img {
+  object-position: center 46%;
 }
 
 .work-card:hover .work-card-image img {
@@ -592,6 +650,31 @@ h3 {
   font-size: 0.8rem;
 }
 
+.practice-evidence {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(18rem, 1.3fr) auto;
+  gap: 1.5rem clamp(2rem, 5vw, 6rem);
+  align-items: start;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.practice-evidence h3 {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+}
+
+.practice-evidence > p {
+  max-width: 45rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.practice-evidence .arrow-link {
+  padding-top: 0;
+  white-space: nowrap;
+}
+
 .profile-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -670,6 +753,35 @@ h3 {
   margin-bottom: 0;
   color: var(--muted);
   font-size: 0.88rem;
+}
+
+.capacity-panel {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  margin-top: clamp(4rem, 7vw, 7rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.capacity-panel h3 {
+  max-width: 20ch;
+  margin: 1rem 0 0;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  line-height: 1.25;
+}
+
+.capacity-copy {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.capacity-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 /* Portrait is capped well below its 1024 px source width so it stays sharp on
@@ -1106,6 +1218,96 @@ figcaption {
   text-decoration: none;
 }
 
+.cv-hero .case-summary {
+  max-width: 42rem;
+}
+
+.cv-pack-section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: 0 0 clamp(5.5rem, 9vw, 9rem);
+}
+
+.pack-card {
+  display: flex;
+  min-height: 25rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--soft);
+}
+
+.pack-card:nth-child(2) {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.pack-card:nth-child(2) .work-type {
+  color: #ff8a5f;
+}
+
+.pack-card h2 {
+  max-width: 17ch;
+  margin: 1.2rem 0 1rem;
+  font-size: clamp(1.65rem, 2.6vw, 2.6rem);
+  line-height: 1.12;
+}
+
+.pack-card > p:not(.work-type):not(.pack-note) {
+  max-width: 36rem;
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+.pack-card:nth-child(2) > p:not(.work-type):not(.pack-note) {
+  color: #b9b9b6;
+}
+
+.pack-card .button {
+  margin-top: auto;
+}
+
+.pack-card:nth-child(2) .button {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.pack-card:nth-child(2) .button:hover {
+  border-color: var(--white);
+  background: var(--white);
+  color: var(--ink);
+}
+
+.pack-note {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  color: #8f8f8b;
+  font-size: 0.75rem;
+}
+
+.route-note {
+  display: grid;
+  grid-template-columns: minmax(11rem, 0.55fr) minmax(18rem, 1fr) minmax(18rem, 1fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  padding: clamp(4rem, 7vw, 7rem) 0;
+  border-top: 1px solid var(--ink);
+}
+
+.route-note h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 1.25;
+}
+
+.route-note > p:last-child {
+  margin: 0;
+  color: var(--muted);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(0.45rem);
@@ -1161,6 +1363,7 @@ figcaption {
 }
 
 @media (max-width: 900px) {
+  .pathway-section,
   .profile-layout,
   .experience-heading,
   .contact-inner,
@@ -1181,6 +1384,12 @@ figcaption {
   .capability-grid article + article {
     padding-left: 0;
     border-left: 0;
+  }
+
+  .pathway-section,
+  .capacity-panel {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 }
 
@@ -1341,8 +1550,14 @@ figcaption {
     padding-bottom: 4.75rem;
   }
 
+  .pathway-section {
+    padding-top: 4.75rem;
+    padding-bottom: 4.75rem;
+  }
+
   .section-head,
   .work-grid,
+  .pathway-grid,
   .profile-layout,
   .experience-heading,
   .contact-inner,
@@ -1364,6 +1579,13 @@ figcaption {
     max-width: none;
   }
 
+  .pathway-card,
+  .pathway-card + .pathway-card {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+    border-left: 0;
+  }
+
   .community-evidence {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -1380,6 +1602,15 @@ figcaption {
     padding: 0.8rem 0;
     border-bottom: 1px solid var(--line);
     border-left: 0;
+  }
+
+  .practice-evidence {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .practice-evidence .arrow-link {
+    justify-self: start;
   }
 
   .experience-links {
@@ -1404,6 +1635,10 @@ figcaption {
   .profile-lead,
   .case-story-copy p:first-child {
     font-size: 1.08rem;
+  }
+
+  .capacity-copy {
+    grid-template-columns: 1fr;
   }
 
   /* Small screens read the details as a snapped strip rather than three
@@ -1476,6 +1711,15 @@ figcaption {
   .case-gallery,
   .art-case-grid {
     grid-template-columns: 1fr;
+  }
+
+  .cv-pack-section,
+  .route-note {
+    grid-template-columns: 1fr;
+  }
+
+  .pack-card {
+    min-height: 23rem;
   }
 
   .case-gallery img {

@@ -1,10 +1,13 @@
 (() => {
-  const emailLink = document.querySelector("#email-link");
+  const emailLinks = document.querySelectorAll("#email-link, .email-link");
   const email = ["brycerossjames", "gmail.com"].join("@");
 
-  if (emailLink) {
-    emailLink.href = `mailto:${email}`;
-  }
+  emailLinks.forEach((emailLink) => {
+    const subject = emailLink.dataset.subject;
+    emailLink.href = subject
+      ? `mailto:${email}?subject=${encodeURIComponent(subject)}`
+      : `mailto:${email}`;
+  });
 
   const year = document.querySelector("#year");
   if (year) {
